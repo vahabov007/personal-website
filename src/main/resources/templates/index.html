@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Vahab Vahabov</title>
+
+    <link rel="icon" href="images/sitelogo.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+            rel="stylesheet"
+    />
+    <style>
+        html {
+                scroll-behavior: smooth;
+            }
+
+            /* Kompüter görünüşü üçün typewriter effekti */
+            .typewriter-text {
+                overflow: hidden;
+                white-space: nowrap; /* Mətnin bir sətirdə qalmasını təmin edir */
+                border-right: 2px solid white; /* Kursor kimi davranır (əvvəlcə görünən) */
+                width: 0; /* Başlanğıcda eni sıfır (mətn gizli) */
+                max-width: 700px; /* Maksimum en təyin edildi */
+                animation:
+                    typing 4s steps(72, end) forwards, /* Mətnin yazılması */
+                    blink-off 0.1s steps(1) 4s forwards; /* Mətn bitdikdən sonra kursoru silmək üçün */
+                text-align: center; /* Mətni içəridən mərkəzləşdirmək üçün */
+                margin-left: auto; /* Mərkəzləşdirmək üçün */
+                margin-right: auto; /* Mərkəzləşdirmək üçün */
+            }
+
+            /* Mobil görünüşdə typewriter effekti sıfırlanır */
+            @media (max-width: 768px) {
+                .typewriter-text {
+                    overflow: visible;
+                    white-space: normal;
+                    border-right: none; /* Mobil görünüşdə kursor olmasın */
+                    width: auto;
+                    max-width: none;
+                    animation: none; /* Mobil üçün bütün animasiyaları ləğv et */
+                    transform: none;
+                    text-align: center !important;
+                    padding-left: 1rem;
+                    padding-right: 1rem;
+                    margin-top: 1.5rem !important;
+                }
+            }
+
+            @keyframes typing {
+                from {
+                    width: 0;
+                }
+                to {
+                    width: 100%;
+                }
+            }
+
+            @keyframes blink-off {
+                from, to {
+                    border-right-color: transparent;
+                }
+            }
+
+            .font-elegant-serif {
+                font-family: "Lora", serif;
+                font-style: italic;
+            }
+
+            /* Header tooltip üçün (əgər varsa) */
+            #logo-button:hover #logo-tooltip,
+            #logo-button:focus #logo-tooltip {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            /* Mobil üçün spesifik CSS qaydaları (max-width: 768px) */
+            @media (max-width: 768px) {
+                .homepage-section {
+                    flex-direction: column !important;
+                    padding-top: 6rem !important;
+                    align-items: center !important;
+                }
+
+                .homepage-heading,
+                .homepage-subtitle,
+                .typewriter-text {
+                    margin-left: 0 !important;
+                    margin-right: 0 !important;
+                    text-align: center !important;
+                }
+
+                .homepage-heading {
+                    font-size: 2.5rem !important;
+                }
+
+                .homepage-subtitle {
+                    font-size: 1.5rem !important;
+                    margin-top: 1rem !important;
+                }
+
+                .contact-link-container {
+                    margin-left: 0 !important;
+                    margin-right: 0 !important;
+                    justify-content: center !important;
+                    display: flex !important;
+                    margin-top: 2rem !important;
+                }
+
+                .homepage-image-container {
+                    width: 70% !important;
+                    max-width: 280px !important;
+                    height: auto !important;
+                    margin-top: 2rem !important;
+                    margin-bottom: 2rem !important;
+                    order: -1;
+                }
+
+                .w-96.h-96 {
+                    width: 100% !important;
+                    height: auto !important;
+                    border-radius: 50% !important;
+                    animation: none;
+                }
+
+                .divider-line-container {
+                    max-width: 90%;
+                    margin: 3rem auto !important;
+                }
+                .line-gap {
+                    width: 1rem !important;
+                }
+            }
+
+            /* --- Şəkil Konteyneri üçün CSS (Homepage-dəki şəklin animasiyası) --- */
+            .homepage-image-container .w-96.h-96 {
+                border-radius: 50% !important;
+                box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7);
+                transition: transform 0.4s ease-out;
+                animation: pulse-border 2s infinite cubic-bezier(0.66, 0, 0.34, 1);
+            }
+
+            .homepage-image-container .w-96.h-96:hover {
+                transform: translateY(-10px) scale(1.02);
+                box-shadow: 0 0 0 10px rgba(0, 123, 255, 0.4), 0 20px 40px rgba(0, 0, 0, 0.3);
+            }
+
+            @keyframes pulse-border {
+                0% {
+                    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7);
+                }
+                70% {
+                    box-shadow: 0 0 0 15px rgba(0, 123, 255, 0);
+                }
+                100% {
+                    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+                }
+            }
+
+            /* Şəkil üzərindəki mətnin animasiyası (əgər varsa) */
+            .absolute.inset-0.flex.flex-col.items-center.justify-center.text-center > p {
+                transform: translateY(100%);
+                opacity: 0;
+                transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+            }
+
+            .group:hover .absolute.inset-0.flex.flex-col.items-center.justify-center.text-center > p {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .group:hover .absolute.inset-0.flex.flex-col.items-center.justify-center.text-center > p:nth-child(2) {
+                transition-delay: 0.15s;
+            }
+
+            /* --- Sol və Sağdan Birləşən Xətlər üçün CSS (Divider) --- */
+            .animated-line {
+                transform: scaleX(0);
+                opacity: 0;
+                transition: none;
+            }
+
+            @keyframes drawLeftLine {
+                0% {
+                    transform: scaleX(0);
+                    opacity: 0;
+                    transform-origin: right;
+                }
+                100% {
+                    transform: scaleX(1);
+                    opacity: 1;
+                    transform-origin: right;
+                }
+            }
+
+            @keyframes drawRightLine {
+                0% {
+                    transform: scaleX(0);
+                    opacity: 0;
+                    transform-origin: left;
+                }
+                100% {
+                    transform: scaleX(1);
+                    opacity: 1;
+                    transform-origin: left;
+                }
+            }
+
+            .divider-line-container .left-line {
+                animation: drawLeftLine 1s ease-out forwards;
+                animation-delay: 0.2s;
+            }
+
+            .divider-line-container .right-line {
+                animation: drawRightLine 1s ease-out forwards;
+                animation-delay: 0.2s;
+            }
+
+            /* --- SKILLS BÖLMƏSİ ÜÇÜN MODAL VƏ KART STİLİ (Virtual effektlər ilə) --- */
+            .skill-card {
+                transform-style: preserve-3d; /* 3D effektlər üçün vacibdir */
+                position: relative;
+                z-index: 1; /* Kölgələrin üzə çıxması üçün */
+                /* hover:scale-105 və transition-all duration-300 kimi classlar HTML-dədir */
+            }
+
+            .skill-card::before {
+                content: '';
+                position: absolute;
+                top: -2px; /* Kölgəni biraz yuxarı və kənara çıxarır */
+                left: -2px;
+                right: -2px;
+                bottom: -2px;
+                /* Rəng dinamik olaraq --skill-color-rgb dəyişənlərindən gəlir */
+                background: linear-gradient(45deg,
+                            rgba(255, 255, 255, 0.05), /* Açıq parıltı effekti */
+                            rgba(var(--skill-color-rgb), 0.3)); /* Rəngli parıltı */
+                z-index: -1;
+                border-radius: inherit; /* Kartın border-radiusunu alır */
+                filter: blur(8px); /* Bulanıklaşdırma */
+                opacity: 0;
+                transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+                transform: scale(0.9);
+            }
+
+            .skill-card:hover::before {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            /* Hər dil üçün xüsusi rənglərlə --skill-color-rgb dəyişənləri */
+            .skill-card[data-skill="java"] { --skill-color-rgb: 248, 152, 32; } /* #f89820 */
+            .skill-card[data-skill="python"] { --skill-color-rgb: 55, 118, 171; } /* #3776AB */
+            .skill-card[data-skill="html"] { --skill-color-rgb: 227, 76, 38; } /* #e34c26 */
+            .skill-card[data-skill="javascript"] { --skill-color-rgb: 240, 219, 79; } /* #f0db4f */
+            .skill-card[data-skill="css"] { --skill-color-rgb: 41, 101, 241; } /* #2965f1 */
+
+            .skill-modal.hidden {
+                display: none; /* JavaScript tərəfindən idarə olunacaq */
+            }
+
+            /* Modalın açılış/bağlanış animasiyaları üçün */
+            .skill-modal {
+                opacity: 0; /* Başlanğıcda şəffaf */
+                pointer-events: none; /* Klik hadisələrini keçirir (görünməz olanda) */
+                transition: opacity 0.3s ease; /* Opacity keçidi */
+            }
+
+            .skill-modal.active {
+                opacity: 1; /* Aktiv olanda görünən */
+                pointer-events: auto; /* Klik hadisələrini qəbul edir */
+            }
+
+            .skill-modal .modal-content { /* modal-content class-ı, mərkəzləşdirmə və border üçün */
+                transform: scale(0.95); /* Başlanğıcda bir az kiçik */
+                transition: transform 0.3s ease; /* Transform keçidi */
+                text-align: center; /* Məzmunu mərkəzləşdir */
+            }
+
+            .skill-modal.active .modal-content {
+                transform: scale(1); /* Aktiv olanda normal ölçü */
+            }
+
+            /* Mobil görünüş üçün modal içərisindəki mətn tənzimləmələri */
+            @media (max-width: 768px) {
+                .skill-modal .modal-content {
+                    max-width: 95%; /* Mobil üçün daha geniş */
+                    padding: 1.5rem;
+                }
+                .skill-modal h3 {
+                    font-size: 2.2rem; /* Mobil üçün başlıq şriftini azalt */
+                }
+                .skill-modal p {
+                    font-size: 1rem; /* Mobil üçün paraqraf şriftini azalt */
+                }
+            }
+    </style>
+</head>
+<body class="bg-gray-900 font-sans text-white">
+<nav
+        class="fixed top-0 left-0 right-0 bg-gray-900 border-b border-gray-700 flex items-center justify-between px-6 py-3 z-50"
+>
+    <div class="relative inline-block" id="logo-button" tabindex="0">
+      <span
+              class="text-white text-3xl font-bold cursor-pointer select-none"
+              title="Vahab Vahabov"
+      >
+        VV
+      </span>
+
+        <div
+                class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-3 py-1 rounded bg-gray-700 text-white text-sm whitespace-nowrap opacity-0 pointer-events-none transition-opacity duration-300"
+                id="logo-tooltip"
+        >
+            Vahab Vahabov
+        </div>
+
+        <div
+                id="logo-dropdown"
+                class="absolute left-0 mt-2 w-40 rounded-md shadow-lg bg-gray-900 ring-1 ring-black ring-opacity-80 hidden z-50"
+        >
+            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="logo-button">
+                <a href="#home" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 hover:text-white"
+                   role="menuitem">Home</a>
+                <a href="#about" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 hover:text-white"
+                   role="menuitem">About Me</a>
+                <a href="#skills" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 hover:text-white"
+                   role="menuitem">Skills</a>
+                <a href="#language-skills" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 hover:text-white"
+                   role="menuitem">Language Skills</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="hidden md:flex space-x-4 items-center">
+        <a
+                href="https://github.com/vahabov007"
+                target="_blank"
+                class="text-2xl text-white hover:text-gray-300"
+        ><i class="fab fa-github"></i></a>
+        <a
+                href="https://www.linkedin.com/in/vahab-vahabov-38283b359/"
+                target="_blank"
+                class="text-2xl text-white hover:text-blue-400"
+        ><i class="fab fa-linkedin"></i></a>
+        <a
+                href="https://www.instagram.com/vahabov996?igsh=MWZpd3N5eWQwaGZiZw=="
+                target="_blank"
+                class="text-2xl text-white hover:text-pink-500"
+        ><i class="fab fa-instagram"></i></a>
+    </div>
+
+    <div class="relative md:hidden">
+        <button id="menu-button" class="text-white text-3xl focus:outline-none">
+            ☰
+        </button>
+
+        <div
+                id="menu-dropdown"
+                class="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5
+           opacity-0 pointer-events-none transform scale-95
+           transition-all duration-300 ease-in-out"
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="menu-button"
+                tabindex="-1"
+        >
+
+            <div class="py-1" role="none">
+                <a
+                        href="#about"
+                        class="text-gray-300 block px-4 py-2 text-sm hover:bg-blue-600 hover:text-white"
+                        role="menuitem"
+                >About Me</a>
+                <a
+                        href="https://github.com/vahabov007"
+                        target="_blank"
+                        class="text-gray-300 block px-4 py-2 text-sm hover:bg-gray-700"
+                >
+                    GitHub
+                </a>
+                <a
+                        href="https://www.linkedin.com/in/vahab-vahabov-38283b359/"
+                        target="_blank"
+                        class="text-gray-300 block px-4 py-2 text-sm hover:bg-gray-700"
+                >
+                    LinkedIn
+                </a>
+                <a
+                        href="https://www.instagram.com/vahabov996?igsh=MWZpd3N5eWQwaGZiZw=="
+                        target="_blank"
+                        class="text-gray-300 block px-4 py-2 text-sm hover:bg-gray-700"
+                >
+                    Instagram
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<main
+        id="home"
+        class="container mx-auto px-4 py-24 flex flex-col items-center homepage-section"
+>
+    <div class="md:w-full text-center mt-8 homepage-image-container order-1 md:order-1">
+        <div
+                class="w-96 h-96 rounded-xl mx-auto shadow-2xl overflow-hidden relative group cursor-pointer"
+        >
+            <img
+                    src="images/vahab.jpg"
+                    alt="Vahab Vahabov"
+                    class="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-105"
+            />
+            <div class="absolute inset-0 bg-blue-700 opacity-0 group-hover:opacity-50 transition-opacity duration-300 rounded-xl"></div>
+
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <p class="text-white text-3xl font-bold mb-2">
+                    Vahab Vahabov
+                </p>
+                <p class="text-gray-200 text-xl font-medium">
+                    Back-end Developer
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="md:w-full text-center mb-6 md:mb-0 order-2 md:order-2">
+        <h1 class="text-5xl md:text-6xl font-bold text-white homepage-heading mt-8">
+            <span class="text-white">Vahab</span> <span class="text-white">Vahabov</span>
+        </h1>
+        <p
+                class="font-elegant-serif text-2xl md:text-4xl text-gray-300 mt-5 homepage-subtitle"
+        >
+            Back-end Developer
+        </p>
+
+        <p
+                class="typewriter-text text-gray-400 mt-6 text-base md:text-2xl mx-auto" >
+            Hello! I am a Back-end Developer, and this is my personal website.
+        </p>
+
+        <div class="mt-10 flex justify-center contact-link-container">
+            <a
+                    href="#contact"
+                    class="text-blue-500 hover:text-blue-700 font-semibold text-2xl md:text-3xl
+           border-2 border-blue-500 rounded-full px-8 py-3 inline-block
+           transition-colors duration-300"
+            >
+                Contact Me
+            </a>
+        </div>
+    </div>
+</main>
+
+<div class="divider-line-container my-20 mx-auto max-w-5xl flex items-center justify-center overflow-hidden">
+    <div class="animated-line left-line bg-gradient-to-r from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+    <div class="line-gap w-8 flex-shrink-0"></div> <div class="animated-line right-line bg-gradient-to-l from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+</div>
+
+<section id="about" class="bg-gray-900 py-20 px-4 text-center">
+    <h2 class="text-5xl font-bold mb-10 text-white">About Me</h2>
+
+    <div
+            class="max-w-4xl mx-auto bg-gray-800 rounded-2xl shadow-2xl p-10 border border-gray-700"
+    >
+        <p class="text-xl leading-relaxed text-gray-300">
+            I am Vahab Vahabov, an <span id="age-placeholder">18</span>-year-old
+            student. In 2024, I graduated with honors (red diploma) from Secondary
+            School No. 4 named after
+            <a href="https://www.google.com/maps/place/4+Nomreli+Orta+Mekteb/@40.4494905,49.7567488,17z/data=!3m1!4b1!4m6!3m5!1s0x403085d8c67a00b3:0x6f848c6854a37b8e!8m2!3d40.4494905!4d49.7567488!16s%2Fg%2F11c6cr0v__?entry=ttu&g_ep=EgoyMDI1MDcxNi4wIKXMDSoASAFQAw%3D%3D"
+               target="_blank" class="underline decoration-gray-300 decoration-1 hover:decoration-blue-500 transition">
+                M. Adigozalov in Khirdalan City
+            </a>. Currently, I am
+            pursuing a degree in
+            <a href="https://www.google.com/maps/place/Azerbaijan+State+Economic+University/@40.3858125,49.8247791,17z/data=!3m1!4b1!4m6!3m5!1s0x40307d9b9925c3ed:0xeee07cb0b400caa2!8m2!3d40.3858125!4d49.827354!16s%2Fg%2F1tf1976j?entry=ttu&g_ep=EgoyMDI1MDcxNi4wIKXMDSoASAFQAw%3D%3D"
+               target="_blank" class="underline decoration-gray-300 decoration-1 hover:decoration-blue-500 transition">
+                Azerbaijan State University of Economics
+            </a>. Since childhood, I have been passionate about creating and
+            developing software, which led me to choose this field. I enjoy
+            constantly improving myself, applying new technologies to my projects,
+            and overcoming the challenges I encounter. At the moment, I have
+            knowledge of Java, Python, and HTML, and I continuously strive to learn
+            additional necessary programming languages.
+        </p>
+
+    </div>
+</section>
+
+<div class="divider-line-container my-20 mx-auto max-w-5xl flex items-center justify-center overflow-hidden">
+    <div class="animated-line left-line bg-gradient-to-r from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+    <div class="line-gap w-8 flex-shrink-0"></div> <div class="animated-line right-line bg-gradient-to-l from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+</div>
+
+<section id="skills" class="bg-gray-900 py-20 px-4 text-center">
+    <h2 class="text-5xl font-bold mb-16 text-white">My Skills</h2>
+    <p class="text-2xl text-gray-400 italic mb-10 -mt-8">
+        Click on a skill card to see details!
+    </p>
+
+    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="skill-card bg-gray-800 rounded-xl shadow-xl p-6 relative cursor-pointer
+                        hover:scale-105 hover:shadow-2xl transition-all duration-300
+                        transform-gpu perspective-1000 group" data-skill="java"> <img src="images/java2.png" alt="Java Logo" class="w-28 h-28 mx-auto mb-4 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:drop-shadow-lg">
+            <h3 class="text-2xl font-bold text-[#f89820] mb-2">Java</h3>
+            <span class="text-white text-sm font-semibold">Advanced</span>
+            <div class="w-full bg-gray-700 rounded-full h-4 mt-4 mb-6">
+                <div class="bg-[#f89820] h-4 rounded-full" style="width: 90%;"></div>
+            </div>
+            <button class="view-details-btn bg-[#f89820] text-gray-900 font-bold py-2 px-4 rounded-full hover:bg-opacity-80 transition-colors duration-300 text-sm">
+                View Details
+            </button>
+        </div>
+
+        <div class="skill-card bg-gray-800 rounded-xl shadow-xl p-6 relative cursor-pointer
+                        hover:scale-105 hover:shadow-2xl transition-all duration-300
+                        transform-gpu perspective-1000 group" data-skill="python"> <img src="images/python2.png" alt="Python Logo" class="w-28 h-28 mx-auto mb-4 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:drop-shadow-lg">
+            <h3 class="text-2xl font-bold text-[#3776AB] mb-2">Python</h3>
+            <span class="text-white text-sm font-semibold">Intermediate</span>
+            <div class="w-full bg-gray-700 rounded-full h-4 mt-4 mb-6">
+                <div class="bg-[#3776AB] h-4 rounded-full" style="width: 70%;"></div>
+            </div>
+            <button class="view-details-btn bg-[#3776AB] text-white font-bold py-2 px-4 rounded-full hover:bg-opacity-80 transition-colors duration-300 text-sm">
+                View Details
+            </button>
+        </div>
+
+        <div class="skill-card bg-gray-800 rounded-xl shadow-xl p-6 relative cursor-pointer
+                        hover:scale-105 hover:shadow-2xl transition-all duration-300
+                        transform-gpu perspective-1000 group" data-skill="html"> <img src="images/html2.png" alt="HTML Logo" class="w-28 h-28 mx-auto mb-4 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:drop-shadow-lg">
+            <h3 class="text-2xl font-bold text-[#e34c26] mb-2">HTML</h3>
+            <span class="text-white text-sm font-semibold">Beginner</span>
+            <div class="w-full bg-gray-700 rounded-full h-4 mt-4 mb-6">
+                <div class="bg-[#e34c26] h-4 rounded-full" style="width: 30%;"></div>
+            </div>
+            <button class="view-details-btn bg-[#e34c26] text-white font-bold py-2 px-4 rounded-full hover:bg-opacity-80 transition-colors duration-300 text-sm">
+                View Details
+            </button>
+        </div>
+
+        <div class="skill-card bg-gray-800 rounded-xl shadow-xl p-6 relative cursor-pointer
+                        hover:scale-105 hover:shadow-2xl transition-all duration-300
+                        transform-gpu perspective-1000 group" data-skill="javascript"> <img src="images/javascript2.png" alt="JavaScript Logo" class="w-28 h-28 mx-auto mb-4 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:drop-shadow-lg">
+            <h3 class="text-2xl font-bold text-[#f0db4f] mb-2">JavaScript</h3>
+            <span class="text-white text-sm font-semibold">Beginner</span>
+            <div class="w-full bg-gray-700 rounded-full h-4 mt-4 mb-6">
+                <div class="bg-[#f0db4f] h-4 rounded-full" style="width: 40%;"></div>
+            </div>
+            <button class="view-details-btn bg-[#f0db4f] text-gray-900 font-bold py-2 px-4 rounded-full hover:bg-opacity-80 transition-colors duration-300 text-sm">
+                View Details
+            </button>
+        </div>
+
+        <div class="skill-card bg-gray-800 rounded-xl shadow-xl p-6 relative cursor-pointer
+                        hover:scale-105 hover:shadow-2xl transition-all duration-300
+                        transform-gpu perspective-1000 group" data-skill="css"> <img src="images/css2.png" alt="CSS Logo" class="w-28 h-28 mx-auto mb-4 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:drop-shadow-lg">
+            <h3 class="text-2xl font-bold text-[#2965f1] mb-2">CSS</h3>
+            <span class="text-white text-sm font-semibold">Beginner</span>
+            <div class="w-full bg-gray-700 rounded-full h-4 mt-4 mb-6">
+                <div class="bg-[#2965f1] h-4 rounded-full" style="width: 10%;"></div>
+            </div>
+            <button class="view-details-btn bg-[#2965f1] text-white font-bold py-2 px-4 rounded-full hover:bg-opacity-80 transition-colors duration-300 text-sm">
+                View Details
+            </button>
+        </div>
+
+    </div>
+
+    <div id="java-modal" class="skill-modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="modal-content bg-gray-800 rounded-xl shadow-2xl p-8 max-w-2xl w-full text-center relative transform scale-95 transition-transform duration-300 border-2 border-[#f89820]">
+            <button class="close-modal absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            <h3 class="text-4xl font-bold text-[#f89820] mb-4">Java Skills</h3>
+            <p class="text-gray-300 text-lg mb-4">Level: <span class="font-semibold">Advanced</span></p>
+            <p class="text-gray-300 text-base leading-relaxed">
+                I have advanced knowledge of Java, focusing on building scalable and secure web applications using
+                frameworks like Spring Boot and Spring Security. I am experienced in developing RESTful APIs,
+                working with databases via JDBC and JPA, and applying object-oriented programming principles to
+                solve complex problems. Additionally, I am comfortable with multi-threading, exception handling, and
+                backend optimization techniques.
+            </p>
+        </div>
+    </div>
+
+    <div id="python-modal" class="skill-modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="modal-content bg-gray-800 rounded-xl shadow-2xl p-8 max-w-2xl w-full text-center relative transform scale-95 transition-transform duration-300 border-2 border-[#3776AB]">
+            <button class="close-modal absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            <h3 class="text-4xl font-bold text-[#3776AB] mb-4">Python Skills</h3>
+            <p class="text-gray-300 text-lg mb-4">Level: <span class="font-semibold">Intermediate</span></p>
+            <p class="text-gray-300 text-base leading-relaxed">
+                I have intermediate experience in Python programming, including web development with Django and
+                Flask, data analysis using Pandas and NumPy, as well as scripting and automation tasks. I am
+                familiar with object-oriented programming, exception handling, and working with REST APIs.
+            </p>
+        </div>
+    </div>
+
+    <div id="html-modal" class="skill-modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="modal-content bg-gray-800 rounded-xl shadow-2xl p-8 max-w-2xl w-full text-center relative transform scale-95 transition-transform duration-300 border-2 border-[#e34c26]">
+            <button class="close-modal absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            <h3 class="text-4xl font-bold text-[#e34c26] mb-4">HTML Skills</h3>
+            <p class="text-gray-300 text-lg mb-4">Level: <span class="font-semibold">Beginner</span></p>
+            <p class="text-gray-300 text-base leading-relaxed">
+                I am at beginner level in HTML and able to create basic webpage structures using semantic tags,
+                forms, and multimedia elements. I am continuously improving my skills to build responsive and
+                accessible websites.
+            </p>
+        </div>
+    </div>
+
+    <div id="javascript-modal" class="skill-modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="modal-content bg-gray-800 rounded-xl shadow-2xl p-8 max-w-2xl w-full text-center relative transform scale-95 transition-transform duration-300 border-2 border-[#f0db4f]">
+            <button class="close-modal absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            <h3 class="text-4xl font-bold text-[#f0db4f] mb-4">JavaScript Skills</h3>
+            <p class="text-gray-300 text-lg mb-4">Level: <span class="font-semibold">Beginner</span></p>
+            <p class="text-gray-300 text-base leading-relaxed">
+                I have beginner-level knowledge of JavaScript, including basic syntax, variables, functions, and
+                simple DOM manipulation to create interactive web pages.
+            </p>
+        </div >
+    </div>
+
+    <div id="css-modal" class="skill-modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="modal-content bg-gray-800 rounded-xl shadow-2xl p-8 max-w-2xl w-full text-center relative transform scale-95 transition-transform duration-300 border-2 border-[#2965f1]">
+            <button class="close-modal absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            <h3 class="text-4xl font-bold text-[#2965f1] mb-4">CSS Skills</h3>
+            <p class="text-gray-300 text-lg mb-4">Level: <span class="font-semibold">Beginner</span></p>
+            <p class="text-gray-300 text-base leading-relaxed">
+                I am familiar with CSS basics like selectors, colors, fonts, and simple responsive design.
+            </p>
+        </div>
+    </div>
+
+</section>
+
+<div class="divider-line-container my-20 mx-auto max-w-5xl flex items-center justify-center overflow-hidden">
+    <div class="animated-line left-line bg-gradient-to-r from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+    <div class="line-gap w-8 flex-shrink-0"></div> <div class="animated-line right-line bg-gradient-to-l from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+</div>
+
+
+<section id="language-skills" class="bg-gray-900 py-20 px-4 text-center">
+    <h2 class="text-5xl font-bold mb-16 text-white">Language Skills</h2>
+
+    <div class="bg-blue-700 rounded-xl p-6 max-w-sm mx-auto shadow-lg text-center">
+        <h3 class="text-white text-3xl font-bold mb-3">English</h3>
+        <div class="flex items-center justify-center mb-2 space-x-2">
+            <span class="text-yellow-400 text-2xl">★★★☆☆</span>
+            <span class="bg-white text-blue-700 font-semibold px-3 py-1 rounded-full text-lg">B1</span>
+        </div>
+        <p class="text-blue-200 text-lg font-medium">Intermediate Level</p>
+    </div>
+
+
+    </div>
+</section>
+
+<div class="divider-line-container my-20 mx-auto max-w-5xl flex items-center justify-center overflow-hidden">
+    <div class="animated-line left-line bg-gradient-to-r from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+    <div class="line-gap w-8 flex-shrink-0"></div> <div class="animated-line right-line bg-gradient-to-l from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+</div>
+
+
+
+<section id="contact" class="bg-gray-900 py-20 px-4 text-center">
+    <h2 class="text-5xl font-bold mb-12 text-white">Get in Touch</h2>
+
+    <p class="text-gray-400 max-w-xl mx-auto mb-8">
+        Have a question or want to work together? Feel free to send me a message!
+    </p>
+
+    <form id="contactForm" class="max-w-lg mx-auto">
+        <input
+                type="text"
+                id="yourName"
+                name="yourName"
+                placeholder="Your Name"
+                class="w-full mb-1 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500"
+        />
+        <span id="error-yourName" class="text-red-500 text-sm mb-4 block"></span>
+
+        <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Your Email"
+                class="w-full mb-1 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500"
+        />
+        <span id="error-email" class="text-red-500 text-sm mb-4 block"></span>
+
+        <textarea
+                id="message"
+                name="message"
+                rows="5"
+                placeholder="Your Message"
+                class="w-full mb-4 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500"
+        ></textarea>
+        <span id="error-message" class="text-red-500 text-sm mb-6 block"></span>
+
+        <button
+                type="submit"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300"
+        >
+            Send Message
+        </button>
+    </form>
+
+    <div id="formSuccess" class="text-green-400 mt-6 font-semibold"></div>
+
+    <div class="mt-12 flex justify-center space-x-8 items-center">
+        <!-- GitHub -->
+        <a href="https://github.com/vahabov007" target="_blank">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" class="w-8 h-8 invert hover:scale-110 transition duration-200" />
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/in/vahab-vahabov-38283b359/" target="_blank">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" class="w-8 h-8" />
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/vahabov996" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="w-8 h-8 rounded" />
+        </a>
+
+        <!-- LeetCode -->
+        <a href="https://leetcode.com/u/vahabov007/" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png" alt="LeetCode" class="w-8 h-8" />
+        </a>
+
+        <!-- Eolymp -->
+        <a href="https://basecamp.eolymp.com/en/users/vahabov007" target="_blank">
+            <img src="https://www.eolymp.com/favicon.ico" alt="Eolymp" class="w-8 h-8" />
+        </a>
+    </div>
+
+</section>
+
+
+<footer class="bg-gray-800 py-4 text-center">
+    <p class="text-gray-400">© Created by Vahab Vahabov in 2025.</p>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Divider xətləri animasiyası üçün mövcud kodunuz
+        const dividerContainers = document.querySelectorAll('.divider-line-container');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelector('.left-line').style.animation = 'drawLeftLine 1s ease-out forwards';
+                    entry.target.querySelector('.left-line').style.animationDelay = '0.2s';
+                    entry.target.querySelector('.right-line').style.animation = 'drawRightLine 1s ease-out forwards';
+                    entry.target.querySelector('.right-line').style.animationDelay = '0.2s';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        dividerContainers.forEach(container => {
+            observer.observe(container);
+        });
+
+        // Yaşın dinamik olaraq hesablanması üçün skript
+        const birthYear = 2006;
+        const currentYear = new Date().getFullYear();
+        const age = currentYear - birthYear;
+        const agePlaceholder = document.getElementById("age-placeholder");
+        if (agePlaceholder) {
+            agePlaceholder.textContent = age;
+        }
+
+        // Hamburger menyu və loqo dropdown üçün JavaScript
+        const menuButton = document.getElementById('menu-button');
+        const menuDropdown = document.getElementById('menu-dropdown');
+        const logoButton = document.getElementById('logo-button');
+        const logoDropdown = document.getElementById('logo-dropdown');
+
+        // Mobil menyu üçün
+        if (menuButton && menuDropdown) {
+            menuButton.addEventListener('click', function(event) {
+                event.stopPropagation();
+                const isExpanded = menuDropdown.classList.contains('opacity-100');
+                if (isExpanded) {
+                    menuDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
+                    menuDropdown.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+                } else {
+                    menuDropdown.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
+                    menuDropdown.classList.add('opacity-100', 'pointer-events-auto', 'scale-100');
+                    if (logoDropdown && !logoDropdown.classList.contains('hidden')) {
+                        logoDropdown.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        // Loqo dropdown üçün
+        if (logoButton && logoDropdown) {
+            logoButton.addEventListener('click', function(event) {
+                event.stopPropagation();
+                const isExpanded = logoDropdown.classList.contains('hidden');
+                if (isExpanded) {
+                    logoDropdown.classList.remove('hidden');
+                    if (menuDropdown && menuDropdown.classList.contains('opacity-100')) {
+                        menuDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
+                        menuDropdown.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+                    }
+                } else {
+                    logoDropdown.classList.add('hidden');
+                }
+            });
+        }
+
+        // Səhifədə hər hansı bir yerə kliklədikdə açılan menyuları bağla
+        document.addEventListener('click', function(event) {
+            if (menuButton && menuDropdown && !menuButton.contains(event.target) && !menuDropdown.contains(event.target)) {
+                menuDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
+                menuDropdown.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+            }
+            if (logoButton && logoDropdown && !logoButton.contains(event.target) && !logoDropdown.contains(event.target)) {
+                logoDropdown.classList.add('hidden');
+            }
+        });
+
+        // --- SKILLS BÖLMƏSİ ÜÇÜN YENİ MODAL JAVASCRIPT KODU ---
+        const skillCards = document.querySelectorAll('.skill-card');
+        const skillModals = document.querySelectorAll('.skill-modal');
+        const closeModalButtons = document.querySelectorAll('.close-modal');
+
+        skillCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const skillId = this.dataset.skill;
+                const modal = document.getElementById(skillId + '-modal');
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    setTimeout(() => {
+                        modal.classList.add('active');
+                    }, 10);
+                }
+            });
+        });
+
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const modal = this.closest('.skill-modal');
+                if (modal) {
+                    modal.classList.remove('active');
+                    modal.addEventListener('transitionend', function handler() {
+                        modal.classList.add('hidden');
+                        modal.removeEventListener('transitionend', handler);
+                    }, { once: true });
+                }
+            });
+        });
+
+        skillModals.forEach(modal => {
+            modal.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.classList.remove('active');
+                    modal.addEventListener('transitionend', function handler() {
+                        modal.classList.add('hidden');
+                        modal.removeEventListener('transitionend', handler);
+                    }, { once: true });
+                }
+            });
+        });
+
+        // --- KONTAKT FORMU JAVASCRIPT KODU BAŞLAYIR ---
+        const contactForm = document.getElementById('contactForm');
+        const formSuccess = document.getElementById('formSuccess');
+        // HTML-də `id="formError"` olan bir div əlavə etməlisiniz, əgər yoxdursa.
+        const formError = document.getElementById('formError');
+
+        // Validasiya span elementləri (bu ID-lərlə HTML-də span-ların olduğundan əmin olun)
+        const errorYourName = document.getElementById('error-yourName');
+        const errorEmail = document.getElementById('error-email');
+        const errorMessage = document.getElementById('error-message');
+
+        // Error mesajlarını təmizləmək üçün funksiya
+        function clearErrors() {
+            if (errorYourName) errorYourName.textContent = '';
+            if (errorEmail) errorEmail.textContent = '';
+            if (errorMessage) errorMessage.textContent = '';
+            if (formSuccess) formSuccess.textContent = '';
+            if (formError) formError.textContent = '';
+        }
+
+        if (contactForm) { // Form elementinin mövcudluğunu yoxlayın
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Formun standart göndərilməsini dayandırır
+                clearErrors(); // Hər göndərişdə əvvəlki xətaları təmizlə
+
+                const yourName = document.getElementById('yourName').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const message = document.getElementById('message').value.trim();
+
+                let isValid = true; // Frontend validasiya statusu
+
+                // Frontend Validasiyası
+                if (yourName.length < 3 || yourName.length > 40) {
+                    if (errorYourName) errorYourName.textContent = 'Adınız 3 ilə 40 simvol arasında olmalıdır.';
+                    isValid = false;
+                } else if (yourName === '') {
+                    if (errorYourName) errorYourName.textContent = 'Ad boş qala bilməz.';
+                    isValid = false;
+                }
+
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    if (errorEmail) errorEmail.textContent = 'Etibarlı bir e-poçt adresi daxil edin.';
+                    isValid = false;
+                } else if (email === '') {
+                    if (errorEmail) errorEmail.textContent = 'E-poçt boş qala bilməz.';
+                    isValid = false;
+                }
+
+                if (message.length === 0 || message.length > 400) {
+                    if (errorMessage) errorMessage.textContent = 'Mesaj boş ola bilməz və 400 simvoldan qısa olmalıdır.';
+                    isValid = false;
+                }
+
+                if (!isValid) {
+                    if (formError) formError.textContent = 'Zəhmət olmasa, formadakı xətaları düzəldin.';
+                    return; // Əgər frontend validasiyasından keçmirsə, göndərmə
+                }
+
+                // Frontend validasiyasından keçdisə, backendə göndər
+                const formData = {
+                    yourName: yourName,
+                    email: email,
+                    message: message
+                };
+
+                const apiUrl = 'http://localhost:8080/api/contact'; // PORTUNUZU DÜZGÜN YOXLAYIN!
+
+                fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData) // JavaScript obyektini JSON string-ə çevirir
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(errorData => Promise.reject(errorData));
+                    }
+                    return response.text(); // Cavabı JSON olaraq yox, mətn olaraq oxuyun
+                                            // Çünki backend-iniz ResponseEntity<String> qaytarır.
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                    if (formSuccess) formSuccess.textContent = data || 'Mesaj uğurla göndərildi!';
+                    if (formError) formError.textContent = '';
+                    contactForm.reset(); // Formu təmizlə
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    if (formError) {
+                        if (error && typeof error === 'object' && error.message) {
+                            formError.textContent = 'Mesaj göndərilərkən xəta baş verdi: ' + error.message;
+                        } else if (typeof error === 'string') {
+                            formError.textContent = 'Mesaj göndərilərkən xəta baş verdi: ' + error;
+                        } else {
+                            formError.textContent = 'Mesaj göndərilərkən naməlum xəta baş verdi. Zəhmət olmasa, internet bağlantınızı yoxlayın və ya daha sonra yenidən cəhd edin.';
+                        }
+                    }
+                    if (formSuccess) formSuccess.textContent = '';
+                });
+            });
+        }
+        // --- KONTAKT FORMU JAVASCRIPT KODU BİTİR ---
+
+    }); // DOMContentLoaded bitir
+</script>
+</body>
+</html>
