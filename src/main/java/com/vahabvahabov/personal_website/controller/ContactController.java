@@ -1,16 +1,19 @@
-// src/main/java/com/vahabvahabov/personal_website/controller/ContactController.java
 package com.vahabvahabov.personal_website.controller;
 
-import com.vahabvahabov.personal_website.model.ContactInfo; // Modelinizi import edin
-import com.vahabvahabov.personal_website.service.EmailService; // Servisinizi import edin
-import jakarta.validation.Valid; // Validasiyanı aktivləşdirmək üçün
+import com.vahabvahabov.personal_website.model.ContactInfo;
+import com.vahabvahabov.personal_website.service.EmailService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@RestController // RESTful API endpoint-i olduğunu bildirir
-@RequestMapping("/api") // Bütün endpointlər '/api' ilə başlayır
-@CrossOrigin(origins = "http://localhost:8080") // Frontend-in domenini qeyd edin (CORS üçün)
+@RestController
+@RequestMapping("/api")
+@CrossOrigin(origins = "https://personal-website-ketc.onrender.com")
 public class ContactController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ContactController.class);
 
     private final EmailService emailService;
 
@@ -18,16 +21,22 @@ public class ContactController {
         this.emailService = emailService;
     }
 
-    @PostMapping("/contact") // Bu endpoint-ə POST sorğuları gələcək
+    @PostMapping("/contact")
     public ResponseEntity<String> handleContactForm(@Valid @RequestBody ContactInfo contactInfo) {
+        logger.info("Kontakt forması sorğusu qəbul edildi. Ad: {}, Email: {}", contactInfo.getYourName(), contactInfo.getEmail());
         try {
-            // Validasiya burada @Valid annotasiyası ilə avtomatik aparılır.
-            // Əgər validasiya uğursuz olsa, metod çağrılmayacaq və Spring avtomatik olaraq 400 Bad Request qaytaracaq.
+            String toEmail = contactInfo.getEmail();
+            String subject = "Yeni Mesaj: " + contactInfo.getYourName();
+            String body = "Ad: " + contactInfo.getYourName() + "\n" +
+                    "Email: " + contactInfo.getEmail() + "\n" +
+                    "Mesaj: " + contactInfo.getMessage();
 
-            emailService.sendContactFormEmail(contactInfo);
+            emailService.sendEmail(toEmail, subject, body);
+            logger.info("Email göndərmə cəhdi tamamlandı.");
+
             return ResponseEntity.ok("Message sent successfully!");
         } catch (Exception e) {
-            // Xəta olarsa, konsola yazdır və 500 status kodu ilə xəta mesajı qaytar
+            logger.error("Email göndərərkən xəta baş verdi: {}", e.getMessage(), e);
             e.printStackTrace();
             return ResponseEntity.status(500).body("Failed to send message: " + e.getMessage());
         }
