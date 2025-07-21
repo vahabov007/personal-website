@@ -11,7 +11,8 @@ import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "https://vahabvahabov.site") // Və ya vahabvahabov.site, domen təsdiqləndikdən sonra
+// DÜZƏLİŞ: Həm www, həm də www-siz domenə icazə vermək üçün origins massivi istifadə edildi
+@CrossOrigin(origins = {"https://vahabvahabov.site", "https://www.vahabvahabov.site"})
 public class ContactController {
 
     private static final Logger logger = LoggerFactory.getLogger(ContactController.class);
