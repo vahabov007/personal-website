@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "https://personal-website-ketc.onrender.com") // Və ya vahabvahabov.site, domen təsdiqləndikdən sonra
+@CrossOrigin(origins = "https://vahabvahabov.site") // Və ya vahabvahabov.site, domen təsdiqləndikdən sonra
 public class ContactController {
 
     private static final Logger logger = LoggerFactory.getLogger(ContactController.class);
