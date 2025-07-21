@@ -942,7 +942,8 @@
                     message: message
                 };
 
-                const apiUrl = 'http://localhost:8080/api/contact'; // PORTUNUZU DÜZGÜN YOXLAYIN!
+                // DÜZƏLİŞ: `apiUrl` Render-dəki canlı tətbiqinizin URL-i ilə əvəz edildi.
+                const apiUrl = 'https://personal-website-ketc.onrender.com/api/contact';
 
                 fetch(apiUrl, {
                     method: 'POST',
@@ -983,5 +984,6 @@
 
     }); // DOMContentLoaded bitir
 </script>
+
 </body>
 </html>
