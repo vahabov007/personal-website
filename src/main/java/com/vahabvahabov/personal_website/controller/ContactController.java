@@ -1,3 +1,4 @@
+// src/main/java/com/vahabvahabov/personal_website/controller/ContactController.java
 package com.vahabvahabov.personal_website.controller;
 
 import com.vahabvahabov.personal_website.model.ContactInfo;
@@ -10,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "https://personal-website-ketc.onrender.com")
+@CrossOrigin(origins = "https://personal-website-ketc.onrender.com") // Və ya vahabvahabov.site, domen təsdiqləndikdən sonra
 public class ContactController {
 
     private static final Logger logger = LoggerFactory.getLogger(ContactController.class);
