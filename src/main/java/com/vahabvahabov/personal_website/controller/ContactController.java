@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api")
-// DÜZƏLİŞ: Bütün mümkün originlərə icazə vermək üçün origins massivi genişləndirildi
 @CrossOrigin(origins = {
         "https://vahabvahabov.site",
         "https://www.vahabvahabov.site",
@@ -32,14 +31,18 @@ public class ContactController {
     public ResponseEntity<String> handleContactForm(@Valid @RequestBody ContactInfo contactInfo) {
         logger.info("Kontakt forması sorğusu qəbul edildi. Ad: {}, Email: {}", contactInfo.getYourName(), contactInfo.getEmail());
         try {
-            String toEmail = contactInfo.getEmail();
+            // DÜZƏLİŞ: Mesajın göndəriləcəyi email adresi sizin əsas email adresiniz olmalıdır.
+            // Bu, sizin mesajları qəbul etmək istədiyiniz email adresidir.
+            String recipientEmail = "vahab.vahabov07@gmail.com"; // Buraya sizin əsas email adresinizi yazın
+
             String subject = "Yeni Mesaj: " + contactInfo.getYourName();
             String body = "Ad: " + contactInfo.getYourName() + "\n" +
                     "Email: " + contactInfo.getEmail() + "\n" +
                     "Mesaj: " + contactInfo.getMessage();
 
-            emailService.sendEmail(toEmail, subject, body);
-            logger.info("Email göndərmə cəhdi tamamlandı.");
+            // Mesajı sizin əsas email adresinizə göndəririk
+            emailService.sendEmail(recipientEmail, subject, body);
+            logger.info("Email göndərmə cəhdi tamamlandı. Mesaj göndərildi: {}", recipientEmail);
 
             return ResponseEntity.ok("Message sent successfully!");
         } catch (Exception e) {
