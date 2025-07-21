@@ -34,7 +34,7 @@ build/
 .vscode/
 
 ### Config files with sensitive data ###
-src/main/resources/application.properties
+src/main/resources/application-example.properties
 .env
 *.key
 *.pem

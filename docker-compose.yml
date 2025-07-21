@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: my-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Postgre123
+      POSTGRES_DB: personal_website
+    networks:
+      - my-network
+    healthcheck: # Sağlamlıq yoxlaması əlavə edirik
+      test: ["CMD-SHELL", "pg_isready -U postgres -d personal_website"] # PostgreSQL-in hazır olmasını yoxla
+      interval: 5s # Hər 5 saniyədən bir yoxla
+      timeout: 5s # Hər yoxlama üçün maksimum 5 saniyə gözlə
+      retries: 5 # Sağlam sayılmaq üçün 5 dəfə uğurlu olmalı
+      start_period: 10s # Başladıqdan sonra 10 saniyə gözlə, sonra yoxlamaya başla
+    volumes: # << Bu hissə əlavə edildi
+      - postgres_data:/var/lib/postgresql/data # PostgreSQL verilənlərini kalıcı olaraq saxlayır
+
+  springboot-app:
+    build: .
+    container_name: spring-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres: # Postgres servisinin sağlam olmasını gözlə
+        condition: service_healthy # Yalnız sağlam olanda başla
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/personal_website
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: Postgre123
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes: # << Bu hissə əlavə edildi
+  postgres_data:
