@@ -755,7 +755,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Divider xətləri animasiyası üçün mövcud kodunuz
+        // Bölücü xətləri animasiyası üçün mövcud kodunuz
         const dividerContainers = document.querySelectorAll('.divider-line-container');
         const observerOptions = {
             root: null,
@@ -786,7 +786,7 @@
             agePlaceholder.textContent = age;
         }
 
-        // Hamburger menyu və loqo dropdown üçün JavaScript
+        // Hamburger menyu və loqo açılan menyu üçün JavaScript
         const menuButton = document.getElementById('menu-button');
         const menuDropdown = document.getElementById('menu-dropdown');
         const logoButton = document.getElementById('logo-button');
@@ -810,7 +810,7 @@
             });
         }
 
-        // Loqo dropdown üçün
+        // Loqo açılan menyu üçün
         if (logoButton && logoDropdown) {
             logoButton.addEventListener('click', function(event) {
                 event.stopPropagation();
@@ -838,7 +838,7 @@
             }
         });
 
-        // --- SKILLS BÖLMƏSİ ÜÇÜN YENİ MODAL JAVASCRIPT KODU ---
+        // --- BACARIQLAR BÖLMƏSİ ÜÇÜN YENİ MODAL JAVASCRIPT KODU ---
         const skillCards = document.querySelectorAll('.skill-card');
         const skillModals = document.querySelectorAll('.skill-modal');
         const closeModalButtons = document.querySelectorAll('.close-modal');
@@ -886,13 +886,14 @@
         const formSuccess = document.getElementById('formSuccess');
         // HTML-də `id="formError"` olan bir div əlavə etməlisiniz, əgər yoxdursa.
         const formError = document.getElementById('formError');
+        const sendButton = contactForm ? contactForm.querySelector('button[type="submit"]') : null; // "Mesaj Göndər" düyməsini əldə et
 
         // Validasiya span elementləri (bu ID-lərlə HTML-də span-ların olduğundan əmin olun)
         const errorYourName = document.getElementById('error-yourName');
         const errorEmail = document.getElementById('error-email');
         const errorMessage = document.getElementById('error-message');
 
-        // Error mesajlarını təmizləmək üçün funksiya
+        // Xəta mesajlarını təmizləmək üçün funksiya
         function clearErrors() {
             if (errorYourName) errorYourName.textContent = '';
             if (errorEmail) errorEmail.textContent = '';
@@ -901,7 +902,7 @@
             if (formError) formError.textContent = '';
         }
 
-        if (contactForm) { // Form elementinin mövcudluğunu yoxlayın
+        if (contactForm && sendButton) { // Forma və düymə elementlərinin mövcudluğunu yoxlayın
             contactForm.addEventListener('submit', function(event) {
                 event.preventDefault(); // Formun standart göndərilməsini dayandırır
                 clearErrors(); // Hər göndərişdə əvvəlki xətaları təmizlə
@@ -914,31 +915,35 @@
 
                 // Frontend Validasiyası
                 if (yourName.length < 3 || yourName.length > 40) {
-                    if (errorYourName) errorYourName.textContent = 'Adınız 3 ilə 40 simvol arasında olmalıdır.';
+                    if (errorYourName) errorYourName.textContent = 'Your name must be between 3 and 40 characters.'; // İngiliscə mesaj
                     isValid = false;
                 } else if (yourName === '') {
-                    if (errorYourName) errorYourName.textContent = 'Ad boş qala bilməz.';
+                    if (errorYourName) errorYourName.textContent = 'Name cannot be empty.'; // İngiliscə mesaj
                     isValid = false;
                 }
 
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(email)) {
-                    if (errorEmail) errorEmail.textContent = 'Etibarlı bir e-poçt adresi daxil edin.';
+                    if (errorEmail) errorEmail.textContent = 'Please enter a valid email address.'; // İngiliscə mesaj
                     isValid = false;
                 } else if (email === '') {
-                    if (errorEmail) errorEmail.textContent = 'E-poçt boş qala bilməz.';
+                    if (errorEmail) errorEmail.textContent = 'Email cannot be empty.'; // İngiliscə mesaj
                     isValid = false;
                 }
 
                 if (message.length === 0 || message.length > 400) {
-                    if (errorMessage) errorMessage.textContent = 'Mesaj boş ola bilməz və 400 simvoldan qısa olmalıdır.';
+                    if (errorMessage) errorMessage.textContent = 'Message cannot be empty and must be shorter than 400 characters.'; // İngiliscə mesaj
                     isValid = false;
                 }
 
                 if (!isValid) {
-                    if (formError) formError.textContent = 'Zəhmət olmasa, formadakı xətaları düzəldin.';
+                    if (formError) formError.textContent = 'Please correct the errors in the form.'; // İngiliscə mesaj
                     return; // Əgər frontend validasiyasından keçmirsə, göndərmə
                 }
+
+                // DÜZƏLİŞ: Mesaj göndərilməyə başlayanda düyməni deaktiv et və mətnini dəyişdir
+                sendButton.disabled = true;
+                sendButton.textContent = 'Message is sending... Please wait.'; // İngiliscə formal yazı
 
                 // Frontend validasiyasından keçdisə, backendə göndər
                 const formData = {
@@ -947,8 +952,8 @@
                     message: message
                 };
 
-                // DÜZƏLİŞ: `apiUrl` Render-dəki canlı tətbiqinizin URL-i ilə əvəz edildi.
-                const apiUrl = 'https://personal-website-ketc.onrender.com/api/contact';
+                // DÜZƏLİŞ: apiUrl sizin canlı domeninizə yönləndirildi
+                const apiUrl = 'https://www.vahabvahabov.site/api/contact';
 
                 fetch(apiUrl, {
                     method: 'POST',
@@ -962,11 +967,10 @@
                         return response.json().then(errorData => Promise.reject(errorData));
                     }
                     return response.text(); // Cavabı JSON olaraq yox, mətn olaraq oxuyun
-                                            // Çünki backend-iniz ResponseEntity<String> qaytarır.
                 })
                 .then(data => {
                     console.log('Success:', data);
-                    if (formSuccess) formSuccess.textContent = data || 'Mesaj uğurla göndərildi!';
+                    if (formSuccess) formSuccess.textContent = data || 'Message sent successfully!';
                     if (formError) formError.textContent = '';
                     contactForm.reset(); // Formu təmizlə
                 })
@@ -974,14 +978,19 @@
                     console.error('Error:', error);
                     if (formError) {
                         if (error && typeof error === 'object' && error.message) {
-                            formError.textContent = 'Mesaj göndərilərkən xəta baş verdi: ' + error.message;
+                            formError.textContent = 'Failed to send message: ' + error.message; // İngiliscə xəta mesajı
                         } else if (typeof error === 'string') {
-                            formError.textContent = 'Mesaj göndərilərkən xəta baş verdi: ' + error;
+                            formError.textContent = 'Failed to send message: ' + error; // İngiliscə xəta mesajı
                         } else {
-                            formError.textContent = 'Mesaj göndərilərkən naməlum xəta baş verdi. Zəhmət olmasa, internet bağlantınızı yoxlayın və ya daha sonra yenidən cəhd edin.';
+                            formError.textContent = 'An unknown error occurred while sending the message. Please check your internet connection or try again later.'; // İngiliscə xəta mesajı
                         }
                     }
                     if (formSuccess) formSuccess.textContent = '';
+                })
+                .finally(() => {
+                    // DÜZƏLİŞ: Sorğu tamamlandıqdan sonra düyməni aktiv et və mətnini əvvəlki vəziyyətinə qaytar
+                    sendButton.disabled = false;
+                    sendButton.textContent = 'Send Message';
                 });
             });
         }
@@ -989,6 +998,7 @@
 
     }); // DOMContentLoaded bitir
 </script>
+
 
 </body>
 </html>
