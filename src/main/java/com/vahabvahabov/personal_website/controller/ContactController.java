@@ -23,6 +23,7 @@ public class ContactController {
 
     private final EmailService emailService;
 
+
     public ContactController(EmailService emailService) {
         this.emailService = emailService;
     }
