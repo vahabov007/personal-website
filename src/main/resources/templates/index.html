@@ -17,291 +17,9 @@
             href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap"
             rel="stylesheet"
     />
-    <style>
-        html {
-                scroll-behavior: smooth;
-            }
 
-            /* Kompüter görünüşü üçün typewriter effekti */
-            .typewriter-text {
-                overflow: hidden;
-                white-space: nowrap; /* Mətnin bir sətirdə qalmasını təmin edir */
-                border-right: 2px solid white; /* Kursor kimi davranır (əvvəlcə görünən) */
-                width: 0; /* Başlanğıcda eni sıfır (mətn gizli) */
-                max-width: 700px; /* Maksimum en təyin edildi */
-                animation:
-                    typing 4s steps(72, end) forwards, /* Mətnin yazılması */
-                    blink-off 0.1s steps(1) 4s forwards; /* Mətn bitdikdən sonra kursoru silmək üçün */
-                text-align: center; /* Mətni içəridən mərkəzləşdirmək üçün */
-                margin-left: auto; /* Mərkəzləşdirmək üçün */
-                margin-right: auto; /* Mərkəzləşdirmək üçün */
-            }
+    <link rel="stylesheet" href="main.css">
 
-            /* Mobil görünüşdə typewriter effekti sıfırlanır */
-            @media (max-width: 768px) {
-                .typewriter-text {
-                    overflow: visible;
-                    white-space: normal;
-                    border-right: none; /* Mobil görünüşdə kursor olmasın */
-                    width: auto;
-                    max-width: none;
-                    animation: none; /* Mobil üçün bütün animasiyaları ləğv et */
-                    transform: none;
-                    text-align: center !important;
-                    padding-left: 1rem;
-                    padding-right: 1rem;
-                    margin-top: 1.5rem !important;
-                }
-            }
-
-            @keyframes typing {
-                from {
-                    width: 0;
-                }
-                to {
-                    width: 100%;
-                }
-            }
-
-            @keyframes blink-off {
-                from, to {
-                    border-right-color: transparent;
-                }
-            }
-
-            .font-elegant-serif {
-                font-family: "Lora", serif;
-                font-style: italic;
-            }
-
-            /* Header tooltip üçün (əgər varsa) */
-            #logo-button:hover #logo-tooltip,
-            #logo-button:focus #logo-tooltip {
-                opacity: 1;
-                pointer-events: auto;
-            }
-
-            /* Mobil üçün spesifik CSS qaydaları (max-width: 768px) */
-            @media (max-width: 768px) {
-                .homepage-section {
-                    flex-direction: column !important;
-                    padding-top: 6rem !important;
-                    align-items: center !important;
-                }
-
-                .homepage-heading,
-                .homepage-subtitle,
-                .typewriter-text {
-                    margin-left: 0 !important;
-                    margin-right: 0 !important;
-                    text-align: center !important;
-                }
-
-                .homepage-heading {
-                    font-size: 2.5rem !important;
-                }
-
-                .homepage-subtitle {
-                    font-size: 1.5rem !important;
-                    margin-top: 1rem !important;
-                }
-
-                .contact-link-container {
-                    margin-left: 0 !important;
-                    margin-right: 0 !important;
-                    justify-content: center !important;
-                    display: flex !important;
-                    margin-top: 2rem !important;
-                }
-
-                .homepage-image-container {
-                    width: 70% !important;
-                    max-width: 280px !important;
-                    height: auto !important;
-                    margin-top: 2rem !important;
-                    margin-bottom: 2rem !important;
-                    order: -1;
-                }
-
-                .w-96.h-96 {
-                    width: 100% !important;
-                    height: auto !important;
-                    border-radius: 50% !important;
-                    animation: none;
-                }
-
-                .divider-line-container {
-                    max-width: 90%;
-                    margin: 3rem auto !important;
-                }
-                .line-gap {
-                    width: 1rem !important;
-                }
-            }
-
-            /* --- Şəkil Konteyneri üçün CSS (Homepage-dəki şəklin animasiyası) --- */
-            .homepage-image-container .w-96.h-96 {
-                border-radius: 50% !important;
-                box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7);
-                transition: transform 0.4s ease-out;
-                animation: pulse-border 2s infinite cubic-bezier(0.66, 0, 0.34, 1);
-            }
-
-            .homepage-image-container .w-96.h-96:hover {
-                transform: translateY(-10px) scale(1.02);
-                box-shadow: 0 0 0 10px rgba(0, 123, 255, 0.4), 0 20px 40px rgba(0, 0, 0, 0.3);
-            }
-
-            @keyframes pulse-border {
-                0% {
-                    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7);
-                }
-                70% {
-                    box-shadow: 0 0 0 15px rgba(0, 123, 255, 0);
-                }
-                100% {
-                    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
-                }
-            }
-
-            /* Şəkil üzərindəki mətnin animasiyası (əgər varsa) */
-            .absolute.inset-0.flex.flex-col.items-center.justify-center.text-center > p {
-                transform: translateY(100%);
-                opacity: 0;
-                transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-            }
-
-            .group:hover .absolute.inset-0.flex.flex-col.items-center.justify-center.text-center > p {
-                transform: translateY(0);
-                opacity: 1;
-            }
-
-            .group:hover .absolute.inset-0.flex.flex-col.items-center.justify-center.text-center > p:nth-child(2) {
-                transition-delay: 0.15s;
-            }
-
-            /* --- Sol və Sağdan Birləşən Xətlər üçün CSS (Divider) --- */
-            .animated-line {
-                transform: scaleX(0);
-                opacity: 0;
-                transition: none;
-            }
-
-            @keyframes drawLeftLine {
-                0% {
-                    transform: scaleX(0);
-                    opacity: 0;
-                    transform-origin: right;
-                }
-                100% {
-                    transform: scaleX(1);
-                    opacity: 1;
-                    transform-origin: right;
-                }
-            }
-
-            @keyframes drawRightLine {
-                0% {
-                    transform: scaleX(0);
-                    opacity: 0;
-                    transform-origin: left;
-                }
-                100% {
-                    transform: scaleX(1);
-                    opacity: 1;
-                    transform-origin: left;
-                }
-            }
-
-            .divider-line-container .left-line {
-                animation: drawLeftLine 1s ease-out forwards;
-                animation-delay: 0.2s;
-            }
-
-            .divider-line-container .right-line {
-                animation: drawRightLine 1s ease-out forwards;
-                animation-delay: 0.2s;
-            }
-
-            /* --- SKILLS BÖLMƏSİ ÜÇÜN MODAL VƏ KART STİLİ (Virtual effektlər ilə) --- */
-            .skill-card {
-                transform-style: preserve-3d; /* 3D effektlər üçün vacibdir */
-                position: relative;
-                z-index: 1; /* Kölgələrin üzə çıxması üçün */
-                /* hover:scale-105 və transition-all duration-300 kimi classlar HTML-dədir */
-            }
-
-            .skill-card::before {
-                content: '';
-                position: absolute;
-                top: -2px; /* Kölgəni biraz yuxarı və kənara çıxarır */
-                left: -2px;
-                right: -2px;
-                bottom: -2px;
-                /* Rəng dinamik olaraq --skill-color-rgb dəyişənlərindən gəlir */
-                background: linear-gradient(45deg,
-                            rgba(255, 255, 255, 0.05), /* Açıq parıltı effekti */
-                            rgba(var(--skill-color-rgb), 0.3)); /* Rəngli parıltı */
-                z-index: -1;
-                border-radius: inherit; /* Kartın border-radiusunu alır */
-                filter: blur(8px); /* Bulanıklaşdırma */
-                opacity: 0;
-                transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-                transform: scale(0.9);
-            }
-
-            .skill-card:hover::before {
-                opacity: 1;
-                transform: scale(1);
-            }
-
-            /* Hər dil üçün xüsusi rənglərlə --skill-color-rgb dəyişənləri */
-            .skill-card[data-skill="java"] { --skill-color-rgb: 248, 152, 32; } /* #f89820 */
-            .skill-card[data-skill="python"] { --skill-color-rgb: 55, 118, 171; } /* #3776AB */
-            .skill-card[data-skill="html"] { --skill-color-rgb: 227, 76, 38; } /* #e34c26 */
-            .skill-card[data-skill="javascript"] { --skill-color-rgb: 240, 219, 79; } /* #f0db4f */
-            .skill-card[data-skill="css"] { --skill-color-rgb: 41, 101, 241; } /* #2965f1 */
-
-            .skill-modal.hidden {
-                display: none; /* JavaScript tərəfindən idarə olunacaq */
-            }
-
-            /* Modalın açılış/bağlanış animasiyaları üçün */
-            .skill-modal {
-                opacity: 0; /* Başlanğıcda şəffaf */
-                pointer-events: none; /* Klik hadisələrini keçirir (görünməz olanda) */
-                transition: opacity 0.3s ease; /* Opacity keçidi */
-            }
-
-            .skill-modal.active {
-                opacity: 1; /* Aktiv olanda görünən */
-                pointer-events: auto; /* Klik hadisələrini qəbul edir */
-            }
-
-            .skill-modal .modal-content { /* modal-content class-ı, mərkəzləşdirmə və border üçün */
-                transform: scale(0.95); /* Başlanğıcda bir az kiçik */
-                transition: transform 0.3s ease; /* Transform keçidi */
-                text-align: center; /* Məzmunu mərkəzləşdir */
-            }
-
-            .skill-modal.active .modal-content {
-                transform: scale(1); /* Aktiv olanda normal ölçü */
-            }
-
-            /* Mobil görünüş üçün modal içərisindəki mətn tənzimləmələri */
-            @media (max-width: 768px) {
-                .skill-modal .modal-content {
-                    max-width: 95%; /* Mobil üçün daha geniş */
-                    padding: 1.5rem;
-                }
-                .skill-modal h3 {
-                    font-size: 2.2rem; /* Mobil üçün başlıq şriftini azalt */
-                }
-                .skill-modal p {
-                    font-size: 1rem; /* Mobil üçün paraqraf şriftini azalt */
-                }
-            }
-    </style>
 </head>
 <body class="bg-gray-900 font-sans text-white">
 <nav
@@ -579,7 +297,7 @@
 
     <div id="java-modal" class="skill-modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-300">
         <div class="modal-content bg-gray-800 rounded-xl shadow-2xl p-8 max-w-2xl w-full text-center relative transform scale-95 transition-transform duration-300 border-2 border-[#f89820]">
-            <button class="close-modal absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            <button class="close-modal absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">×</button>
             <h3 class="text-4xl font-bold text-[#f89820] mb-4">Java Skills</h3>
             <p class="text-gray-300 text-lg mb-4">Level: <span class="font-semibold">Advanced</span></p>
             <p class="text-gray-300 text-base leading-relaxed">
@@ -594,7 +312,7 @@
 
     <div id="python-modal" class="skill-modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-300">
         <div class="modal-content bg-gray-800 rounded-xl shadow-2xl p-8 max-w-2xl w-full text-center relative transform scale-95 transition-transform duration-300 border-2 border-[#3776AB]">
-            <button class="close-modal absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            <button class="close-modal absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">×</button>
             <h3 class="text-4xl font-bold text-[#3776AB] mb-4">Python Skills</h3>
             <p class="text-gray-300 text-lg mb-4">Level: <span class="font-semibold">Intermediate</span></p>
             <p class="text-gray-300 text-base leading-relaxed">
@@ -607,7 +325,7 @@
 
     <div id="html-modal" class="skill-modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-300">
         <div class="modal-content bg-gray-800 rounded-xl shadow-2xl p-8 max-w-2xl w-full text-center relative transform scale-95 transition-transform duration-300 border-2 border-[#e34c26]">
-            <button class="close-modal absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            <button class="close-modal absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">×</button>
             <h3 class="text-4xl font-bold text-[#e34c26] mb-4">HTML Skills</h3>
             <p class="text-gray-300 text-lg mb-4">Level: <span class="font-semibold">Beginner</span></p>
             <p class="text-gray-300 text-base leading-relaxed">
@@ -620,7 +338,7 @@
 
     <div id="javascript-modal" class="skill-modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-300">
         <div class="modal-content bg-gray-800 rounded-xl shadow-2xl p-8 max-w-2xl w-full text-center relative transform scale-95 transition-transform duration-300 border-2 border-[#f0db4f]">
-            <button class="close-modal absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            <button class="close-modal absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">×</button>
             <h3 class="text-4xl font-bold text-[#f0db4f] mb-4">JavaScript Skills</h3>
             <p class="text-gray-300 text-lg mb-4">Level: <span class="font-semibold">Beginner</span></p>
             <p class="text-gray-300 text-base leading-relaxed">
@@ -632,7 +350,7 @@
 
     <div id="css-modal" class="skill-modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden opacity-0 transition-opacity duration-300">
         <div class="modal-content bg-gray-800 rounded-xl shadow-2xl p-8 max-w-2xl w-full text-center relative transform scale-95 transition-transform duration-300 border-2 border-[#2965f1]">
-            <button class="close-modal absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
+            <button class="close-modal absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold">×</button>
             <h3 class="text-4xl font-bold text-[#2965f1] mb-4">CSS Skills</h3>
             <p class="text-gray-300 text-lg mb-4">Level: <span class="font-semibold">Beginner</span></p>
             <p class="text-gray-300 text-base leading-relaxed">
@@ -648,20 +366,71 @@
     <div class="line-gap w-8 flex-shrink-0"></div> <div class="animated-line right-line bg-gradient-to-l from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
 </div>
 
-
-<section id="language-skills" class="bg-gray-900 py-20 px-4 text-center">
-    <h2 class="text-5xl font-bold mb-16 text-white">Language Skills</h2>
-
-    <div class="bg-blue-700 rounded-xl p-6 max-w-sm mx-auto shadow-lg text-center">
-        <h3 class="text-white text-3xl font-bold mb-3">English</h3>
-        <div class="flex items-center justify-center mb-2 space-x-2">
-            <span class="text-yellow-400 text-2xl">★★★☆☆</span>
-            <span class="bg-white text-blue-700 font-semibold px-3 py-1 rounded-full text-lg">B1</span>
+<section id="projects" class="bg-gray-900 py-20 px-4 text-center">
+    <h2 class="text-5xl font-bold mb-16 text-white">My Projects</h2>
+    <div class="grid gap-12 max-w-5xl mx-auto">
+        <div class="project-card bg-gray-800 rounded-xl shadow-2xl p-6 relative overflow-hidden transition-all duration-300 transform-gpu hover:scale-[1.02] group fade-in-section">
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-700 to-blue-900 opacity-20 transition-opacity duration-500 group-hover:opacity-40 z-0"></div>
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="w-full md:w-1/2 text-left">
+                    <h3 class="text-4xl font-bold text-blue-400 mb-4">User Authentication</h3>
+                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                        A robust and secure user authentication system built with Spring Boot. It features user registration, login, password encryption, and JWT-based security to protect user data.
+                    </p>
+                    <a href="https://github.com/vahabov007/UserAuthenticationService" target="_blank" class="inline-flex items-center text-blue-300 hover:text-white font-semibold transition-colors duration-300">
+                        <i class="fab fa-github text-xl mr-2"></i> View on GitHub
+                    </a>
+                </div>
+                <div class="w-full md:w-1/2 aspect-video rounded-lg overflow-hidden shadow-lg transition-all duration-500 transform group-hover:shadow-2xl">
+                    <video class="w-full h-full object-cover" controls muted playsinline poster="images/user.jpg">
+                        <source src="videos/user_authentication.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
         </div>
-        <p class="text-blue-200 text-lg font-medium">Intermediate Level</p>
-    </div>
 
+        <div class="project-card bg-gray-800 rounded-xl shadow-2xl p-6 relative overflow-hidden transition-all duration-300 transform-gpu hover:scale-[1.02] group fade-in-section">
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-700 to-purple-900 opacity-20 transition-opacity duration-500 group-hover:opacity-40 z-0"></div>
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="w-full md:w-1/2 aspect-video rounded-lg overflow-hidden shadow-lg transition-all duration-500 transform group-hover:shadow-2xl md:order-last">
+                    <video class="w-full h-full object-cover" controls muted playsinline poster="images/media.png">
+                        <source src="videos/media_downloader.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="w-full md:w-1/2 text-left md:order-first">
+                    <h3 class="text-4xl font-bold text-purple-400 mb-4">Media Downloader</h3>
+                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                        A powerful web application that allows users to download videos and audio from various platforms simply by pasting a URL. It supports multiple formats and ensures fast, reliable downloads.
+                    </p>
+                    <a href="https://github.com/vahabov007/media-downloader" target="_blank" class="inline-flex items-center text-purple-300 hover:text-white font-semibold transition-colors duration-300">
+                        <i class="fab fa-github text-xl mr-2"></i> View on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
 
+        <div class="project-card bg-gray-800 rounded-xl shadow-2xl p-6 relative overflow-hidden transition-all duration-300 transform-gpu hover:scale-[1.02] group fade-in-section">
+            <div class="absolute inset-0 bg-gradient-to-br from-green-700 to-green-900 opacity-20 transition-opacity duration-500 group-hover:opacity-40 z-0"></div>
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="w-full md:w-1/2 text-left">
+                    <h3 class="text-4xl font-bold text-green-400 mb-4">QR Code Generator</h3>
+                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                        A dynamic QR Code generator built for effortless creation of QR codes from any text or URL. Users can customize colors and download the QR codes in various formats.
+                    </p>
+                    <a href="https://github.com/vahabov007/qr-code-generator" target="_blank" class="inline-flex items-center text-green-300 hover:text-white font-semibold transition-colors duration-300">
+                        <i class="fab fa-github text-xl mr-2"></i> View on GitHub
+                    </a>
+                </div>
+                <div class="w-full md:w-1/2 aspect-video rounded-lg overflow-hidden shadow-lg transition-all duration-500 transform group-hover:shadow-2xl">
+                    <video class="w-full h-full object-cover" controls muted playsinline poster="images/qrcode.png">
+                        <source src="videos/qr_code.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -670,7 +439,34 @@
     <div class="line-gap w-8 flex-shrink-0"></div> <div class="animated-line right-line bg-gradient-to-l from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
 </div>
 
+<section id="language-skills" class="bg-gray-900 py-20 px-4 text-center">
+    <h2 class="text-5xl font-bold mb-16 text-white">Language Skills</h2>
 
+    <div class="max-w-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-green-700 rounded-xl p-6 max-w-sm mx-auto shadow-lg text-center w-full">
+            <h3 class="text-white text-3xl font-bold mb-3">Azerbaijani</h3>
+            <div class="flex items-center justify-center mb-2 space-x-2">
+                <span class="text-yellow-400 text-2xl">★★★★★</span>
+                <span class="bg-white text-green-700 font-semibold px-3 py-1 rounded-full text-lg">Native</span>
+            </div>
+            <p class="text-green-200 text-lg font-medium">Native Speaker</p>
+        </div>
+
+        <div class="bg-blue-700 rounded-xl p-6 max-w-sm mx-auto shadow-lg text-center w-full">
+            <h3 class="text-white text-3xl font-bold mb-3">English</h3>
+            <div class="flex items-center justify-center mb-2 space-x-2">
+                <span class="text-yellow-400 text-2xl">★★★☆☆</span>
+                <span class="bg-white text-blue-700 font-semibold px-3 py-1 rounded-full text-lg">B1</span>
+            </div>
+            <p class="text-blue-200 text-lg font-medium">Intermediate Level</p>
+        </div>
+    </div>
+</section>
+
+<div class="divider-line-container my-20 mx-auto max-w-5xl flex items-center justify-center overflow-hidden">
+    <div class="animated-line left-line bg-gradient-to-r from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+    <div class="line-gap w-8 flex-shrink-0"></div> <div class="animated-line right-line bg-gradient-to-l from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+</div>
 
 <section id="contact" class="bg-gray-900 py-20 px-4 text-center">
     <h2 class="text-5xl font-bold mb-12 text-white">Get in Touch</h2>
@@ -718,287 +514,32 @@
     <div id="formSuccess" class="text-green-400 mt-6 font-semibold"></div>
 
     <div class="mt-12 flex justify-center space-x-8 items-center">
-        <!-- GitHub -->
         <a href="https://github.com/vahabov007" target="_blank">
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" class="w-8 h-8 invert hover:scale-110 transition duration-200" />
         </a>
 
-        <!-- LinkedIn -->
         <a href="https://www.linkedin.com/in/vahab-vahabov-136680356/" target="_blank">
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" class="w-8 h-8" />
         </a>
 
-        <!-- Instagram -->
         <a href="https://www.instagram.com/vahabov996" target="_blank">
             <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="w-8 h-8 rounded" />
         </a>
 
-        <!-- LeetCode -->
         <a href="https://leetcode.com/u/vahabov007/" target="_blank">
             <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png" alt="LeetCode" class="w-8 h-8" />
         </a>
 
-        <!-- Eolymp -->
         <a href="https://basecamp.eolymp.com/en/users/vahabov007" target="_blank">
             <img src="https://www.eolymp.com/favicon.ico" alt="Eolymp" class="w-8 h-8" />
         </a>
     </div>
 
 </section>
-
-
 <footer class="bg-gray-800 text-white text-center py-4 text-sm">
-    <p>&copy; 2025 Vahab Vahabov. All rights reserved.</p>
+    <p>© 2025 Vahab Vahabov. All rights reserved.</p>
     <p class="mt-1">Built with <span class="font-semibold text-blue-400">Spring Boot</span> & <span class="font-semibold text-teal-300">TailwindCSS</span></p>
 </footer>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Bölücü xətləri animasiyası üçün mövcud kodunuz
-        const dividerContainers = document.querySelectorAll('.divider-line-container');
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.5
-        };
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.querySelector('.left-line').style.animation = 'drawLeftLine 1s ease-out forwards';
-                    entry.target.querySelector('.left-line').style.animationDelay = '0.2s';
-                    entry.target.querySelector('.right-line').style.animation = 'drawRightLine 1s ease-out forwards';
-                    entry.target.querySelector('.right-line').style.animationDelay = '0.2s';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-        dividerContainers.forEach(container => {
-            observer.observe(container);
-        });
-
-        // Yaşın dinamik olaraq hesablanması üçün skript
-        const birthYear = 2007;
-        const currentYear = new Date().getFullYear();
-        const age = currentYear - birthYear;
-        const agePlaceholder = document.getElementById("age-placeholder");
-        if (agePlaceholder) {
-            agePlaceholder.textContent = age;
-        }
-
-        // Hamburger menyu və loqo açılan menyu üçün JavaScript
-        const menuButton = document.getElementById('menu-button');
-        const menuDropdown = document.getElementById('menu-dropdown');
-        const logoButton = document.getElementById('logo-button');
-        const logoDropdown = document.getElementById('logo-dropdown');
-
-        // Mobil menyu üçün
-        if (menuButton && menuDropdown) {
-            menuButton.addEventListener('click', function(event) {
-                event.stopPropagation();
-                const isExpanded = menuDropdown.classList.contains('opacity-100');
-                if (isExpanded) {
-                    menuDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
-                    menuDropdown.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
-                } else {
-                    menuDropdown.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
-                    menuDropdown.classList.add('opacity-100', 'pointer-events-auto', 'scale-100');
-                    if (logoDropdown && !logoDropdown.classList.contains('hidden')) {
-                        logoDropdown.classList.add('hidden');
-                    }
-                }
-            });
-        }
-
-        // Loqo açılan menyu üçün
-        if (logoButton && logoDropdown) {
-            logoButton.addEventListener('click', function(event) {
-                event.stopPropagation();
-                const isExpanded = logoDropdown.classList.contains('hidden');
-                if (isExpanded) {
-                    logoDropdown.classList.remove('hidden');
-                    if (menuDropdown && menuDropdown.classList.contains('opacity-100')) {
-                        menuDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
-                        menuDropdown.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
-                    }
-                } else {
-                    logoDropdown.classList.add('hidden');
-                }
-            });
-        }
-
-        // Səhifədə hər hansı bir yerə kliklədikdə açılan menyuları bağla
-        document.addEventListener('click', function(event) {
-            if (menuButton && menuDropdown && !menuButton.contains(event.target) && !menuDropdown.contains(event.target)) {
-                menuDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
-                menuDropdown.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
-            }
-            if (logoButton && logoDropdown && !logoButton.contains(event.target) && !logoDropdown.contains(event.target)) {
-                logoDropdown.classList.add('hidden');
-            }
-        });
-
-        // --- BACARIQLAR BÖLMƏSİ ÜÇÜN YENİ MODAL JAVASCRIPT KODU ---
-        const skillCards = document.querySelectorAll('.skill-card');
-        const skillModals = document.querySelectorAll('.skill-modal');
-        const closeModalButtons = document.querySelectorAll('.close-modal');
-
-        skillCards.forEach(card => {
-            card.addEventListener('click', function() {
-                const skillId = this.dataset.skill;
-                const modal = document.getElementById(skillId + '-modal');
-                if (modal) {
-                    modal.classList.remove('hidden');
-                    setTimeout(() => {
-                        modal.classList.add('active');
-                    }, 10);
-                }
-            });
-        });
-
-        closeModalButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const modal = this.closest('.skill-modal');
-                if (modal) {
-                    modal.classList.remove('active');
-                    modal.addEventListener('transitionend', function handler() {
-                        modal.classList.add('hidden');
-                        modal.removeEventListener('transitionend', handler);
-                    }, { once: true });
-                }
-            });
-        });
-
-        skillModals.forEach(modal => {
-            modal.addEventListener('click', function(event) {
-                if (event.target === modal) {
-                    modal.classList.remove('active');
-                    modal.addEventListener('transitionend', function handler() {
-                        modal.classList.add('hidden');
-                        modal.removeEventListener('transitionend', handler);
-                    }, { once: true });
-                }
-            });
-        });
-
-        // --- KONTAKT FORMU JAVASCRIPT KODU BAŞLAYIR ---
-        const contactForm = document.getElementById('contactForm');
-        const formSuccess = document.getElementById('formSuccess');
-        // HTML-də `id="formError"` olan bir div əlavə etməlisiniz, əgər yoxdursa.
-        const formError = document.getElementById('formError');
-        const sendButton = contactForm ? contactForm.querySelector('button[type="submit"]') : null; // "Mesaj Göndər" düyməsini əldə et
-
-        // Validasiya span elementləri (bu ID-lərlə HTML-də span-ların olduğundan əmin olun)
-        const errorYourName = document.getElementById('error-yourName');
-        const errorEmail = document.getElementById('error-email');
-        const errorMessage = document.getElementById('error-message');
-
-        // Xəta mesajlarını təmizləmək üçün funksiya
-        function clearErrors() {
-            if (errorYourName) errorYourName.textContent = '';
-            if (errorEmail) errorEmail.textContent = '';
-            if (errorMessage) errorMessage.textContent = '';
-            if (formSuccess) formSuccess.textContent = '';
-            if (formError) formError.textContent = '';
-        }
-
-        if (contactForm && sendButton) { // Forma və düymə elementlərinin mövcudluğunu yoxlayın
-            contactForm.addEventListener('submit', function(event) {
-                event.preventDefault(); // Formun standart göndərilməsini dayandırır
-                clearErrors(); // Hər göndərişdə əvvəlki xətaları təmizlə
-
-                const yourName = document.getElementById('yourName').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const message = document.getElementById('message').value.trim();
-
-                let isValid = true; // Frontend validasiya statusu
-
-                // Frontend Validasiyası
-                if (yourName.length < 3 || yourName.length > 40) {
-                    if (errorYourName) errorYourName.textContent = 'Your name must be between 3 and 40 characters.'; // İngiliscə mesaj
-                    isValid = false;
-                } else if (yourName === '') {
-                    if (errorYourName) errorYourName.textContent = 'Name cannot be empty.'; // İngiliscə mesaj
-                    isValid = false;
-                }
-
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(email)) {
-                    if (errorEmail) errorEmail.textContent = 'Please enter a valid email address.'; // İngiliscə mesaj
-                    isValid = false;
-                } else if (email === '') {
-                    if (errorEmail) errorEmail.textContent = 'Email cannot be empty.'; // İngiliscə mesaj
-                    isValid = false;
-                }
-
-                if (message.length === 0 || message.length > 400) {
-                    if (errorMessage) errorMessage.textContent = 'Message cannot be empty and must be shorter than 400 characters.'; // İngiliscə mesaj
-                    isValid = false;
-                }
-
-                if (!isValid) {
-                    if (formError) formError.textContent = 'Please correct the errors in the form.'; // İngiliscə mesaj
-                    return; // Əgər frontend validasiyasından keçmirsə, göndərmə
-                }
-
-                // DÜZƏLİŞ: Mesaj göndərilməyə başlayanda düyməni deaktiv et və mətnini dəyişdir
-                sendButton.disabled = true;
-                sendButton.textContent = 'Message is sending... Please wait.'; // İngiliscə formal yazı
-
-                // Frontend validasiyasından keçdisə, backendə göndər
-                const formData = {
-                    yourName: yourName,
-                    email: email,
-                    message: message
-                };
-
-                // DÜZƏLİŞ: apiUrl sizin canlı domeninizə yönləndirildi
-                const apiUrl = 'https://www.vahabvahabov.site/api/contact';
-
-                fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData) // JavaScript obyektini JSON string-ə çevirir
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        return response.json().then(errorData => Promise.reject(errorData));
-                    }
-                    return response.text(); // Cavabı JSON olaraq yox, mətn olaraq oxuyun
-                })
-                .then(data => {
-                    console.log('Success:', data);
-                    if (formSuccess) formSuccess.textContent = data || 'Message sent successfully!';
-                    if (formError) formError.textContent = '';
-                    contactForm.reset(); // Formu təmizlə
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    if (formError) {
-                        if (error && typeof error === 'object' && error.message) {
-                            formError.textContent = 'Failed to send message: ' + error.message; // İngiliscə xəta mesajı
-                        } else if (typeof error === 'string') {
-                            formError.textContent = 'Failed to send message: ' + error; // İngiliscə xəta mesajı
-                        } else {
-                            formError.textContent = 'An unknown error occurred while sending the message. Please check your internet connection or try again later.'; // İngiliscə xəta mesajı
-                        }
-                    }
-                    if (formSuccess) formSuccess.textContent = '';
-                })
-                .finally(() => {
-                    // DÜZƏLİŞ: Sorğu tamamlandıqdan sonra düyməni aktiv et və mətnini əvvəlki vəziyyətinə qaytar
-                    sendButton.disabled = false;
-                    sendButton.textContent = 'Send Message';
-                });
-            });
-        }
-        // --- KONTAKT FORMU JAVASCRIPT KODU BİTİR ---
-
-    }); // DOMContentLoaded bitir
-</script>
-
-
 </body>
+<script src="main.js"></script>
 </html>

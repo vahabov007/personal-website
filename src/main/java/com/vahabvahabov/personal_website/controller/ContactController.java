@@ -1,4 +1,3 @@
-// src/main/java/com/vahabvahabov/personal_website/controller/ContactController.java
 package com.vahabvahabov.personal_website.controller;
 
 import com.vahabvahabov.personal_website.model.ContactInfo;
@@ -14,8 +13,8 @@ import org.slf4j.LoggerFactory;
 @CrossOrigin(origins = {
         "https://vahabvahabov.site",
         "https://www.vahabvahabov.site",
-        "http://localhost:8080", // Lokal test üçün
-        "https://personal-website-ketc.onrender.com" // Render-in ilkin URL-i üçün
+        "http://localhost:8080",
+        "https://personal-website-ketc.onrender.com"
 })
 public class ContactController {
 
@@ -32,16 +31,13 @@ public class ContactController {
     public ResponseEntity<String> handleContactForm(@Valid @RequestBody ContactInfo contactInfo) {
         logger.info("Kontakt forması sorğusu qəbul edildi. Ad: {}, Email: {}", contactInfo.getYourName(), contactInfo.getEmail());
         try {
-            // DÜZƏLİŞ: Mesajın göndəriləcəyi email adresi sizin əsas email adresiniz olmalıdır.
-            // Bu, sizin mesajları qəbul etmək istədiyiniz email adresidir.
-            String recipientEmail = "vahab.vahabov07@gmail.com"; // Buraya sizin əsas email adresinizi yazın
+            String recipientEmail = "vahab.vahabov07@gmail.com"; //
 
             String subject = "Yeni Mesaj: " + contactInfo.getYourName();
             String body = "Ad: " + contactInfo.getYourName() + "\n" +
                     "Email: " + contactInfo.getEmail() + "\n" +
                     "Mesaj: " + contactInfo.getMessage();
 
-            // Mesajı sizin əsas email adresinizə göndəririk
             emailService.sendEmail(recipientEmail, subject, body);
             logger.info("Email göndərmə cəhdi tamamlandı. Mesaj göndərildi: {}", recipientEmail);
 
