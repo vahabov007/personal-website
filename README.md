@@ -1,37 +1,66 @@
-📌 Personal Website Launched: www.vahabvahabov.site
+# Vahab Vahabov | Personal Website
 
-I’m excited to announce that my personal website is now live. This platform was developed as a real-world application to practice and demonstrate my programming skills. It serves both as a portfolio and a point of interaction for users who wish to get in touch.
+Welcome to the GitHub repository for my personal portfolio website! This project serves as a real-world application to demonstrate my skills in web development, combining both backend and frontend technologies.
 
-🔍 Website Sections:
-About Me – A short biography and an overview of my technical journey
+## About the Project
 
-My Skills – Programming and technical skills I have acquired
+This personal website is a dynamic platform that showcases my technical journey, skills, and projects. It's a single-page application built to be fully responsive and user-friendly, providing a comprehensive overview of my professional profile. It also features an interactive contact form that allows direct communication.
 
-Language Skills – Languages I can communicate in and their proficiency levels
+### Website Sections 
+- **About Me:** Learn about my background, education, and passion for software development.
+- **My Skills:** Explore the programming languages, frameworks, and technologies I have experience with, including detailed pop-up modals for each skill.
+- **Language Skills:** See the languages I can communicate in and my proficiency level.
+- **Get in Touch:** A user-friendly contact form that allows visitors to send messages directly to my email.
 
-Get in Touch – A contact form enabling direct communication with me
+### What’s New (Latest Updates)
+- **Projects Section:** The new "My Projects" section is now live! It features my key projects, complete with brief descriptions and embedded video demos to showcase their functionality.
 
-ℹ️ Note: The Projects section is currently under development and will be available soon.
+## Technical Stack & Functionality
 
-🛠 Technologies & Functionality:
-Backend: Java + Spring Boot (REST APIs, MVC architecture)
+This project is a testament to my ability to build a full-stack application from the ground up, with a strong focus on clean architecture and robust functionality.
 
-Frontend: HTML5, CSS3, JavaScript, Tailwind CSS, Thymeleaf
+### Backend
+- **Core Technology:** **Java** with **Spring Boot**.
+- **APIs:** Developed **RESTful APIs** for managing contact form submissions.
+- **Architecture:** Follows the **Model-View-Controller (MVC)** design pattern.
+- **Email Integration:** Integrated **Spring Boot Mail** to send messages from the contact form directly to my email address.
 
-Database: PostgreSQL
+### Frontend
+- **Markup:** **HTML5** with **Thymeleaf** for server-side rendering.
+- **Styling:** **CSS3** and **Tailwind CSS** for a modern, responsive design.
+- **Interactivity:** **JavaScript** for dynamic elements, animations (typewriter effect), and form validation.
 
-Email Integration: Messages submitted via the contact form are delivered directly to my email using Spring Boot Mail
+### Database & Hosting
+- **Database:** **PostgreSQL** to store contact form messages and other data.
+- **Hosting:** Deployed and managed on **Render.com**.
+- **Containerization:** **Docker** support for easy, environment-independent deployment.
+- **Domain:** Hosted at `www.vahabvahabov.site`.
 
-Visual Effects: Typewriter animation, smooth transitions, interactive hover effects, and fully responsive design
+### Core Features
+- **Responsive Design:** The layout is fully responsive and looks great on all devices (mobile, tablet, and desktop).
+- **Smooth Animations:** Integrated CSS and JavaScript for smooth transitions, hover effects, and a custom divider line animation.
+- **SEO Optimization:** The site is optimized for search engines with a `sitemap.xml` file and detailed meta tags.
+- **Interactive Modals:** Clicking on a skill card triggers a pop-up modal with more information about that skill.
 
-Containerization: Docker support ensures environment-independent deployment
+## How to Run Locally
 
-Hosting: Hosted on Render.com
+If you'd like to run this project on your local machine, follow these steps:
 
-Domain: www.vahabvahabov.site
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/vahabov007/personal-website.git](https://github.com/vahabov007/personal-website.git)
+    cd personal-website
+    ```
+2.  **Set up the environment:**
+    - Ensure you have **Java (JDK 17 or higher)** and **Maven** installed.
+    - Configure your **PostgreSQL** database and update the database connection properties in `src/main/resources/application.properties`.
+3.  **Run the application:**
+    ```bash
+    # From the project's root directory
+    mvn spring-boot:run
+    ```
+    The application will start on `http://localhost:8080`.
 
-This project reflects my ability to combine both backend and frontend technologies into a complete, functional, and user-friendly web application.
-I would greatly appreciate any feedback or suggestions you may have!
+## Feedback & Contributions
 
-🔗 Visit the website: www.vahabvahabov.site
-
+Your feedback is highly valued! If you have any suggestions, bug reports, or ideas for new features, please open an issue in this repository.
