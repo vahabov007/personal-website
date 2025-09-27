@@ -33,7 +33,6 @@ public class EmailService {
         logger.info("Building HTML email body for contact form with topic: {}", topic);
 
         try {
-            // Debug: Template faylının yolunu yoxla
             ClassPathResource resource = new ClassPathResource("templates/email-template.html");
             logger.info("Looking for template at: {}", resource.getPath());
             logger.info("Template exists: {}", resource.exists());
@@ -41,7 +40,6 @@ public class EmailService {
 
             if (!resource.exists()) {
                 logger.error("Email template not found at: templates/email-template.html");
-                // Bütün mövcud faylları list et
                 ClassPathResource templatesDir = new ClassPathResource("templates/");
                 logger.info("Available files in templates directory: {}",
                         templatesDir.getFile().list());
@@ -51,7 +49,6 @@ public class EmailService {
             String htmlTemplate = StreamUtils.copyToString(resource.getInputStream(), StandardCharsets.UTF_8);
             logger.info("Template loaded successfully. Length: {} characters", htmlTemplate.length());
 
-            // Debug: Replace əməliyyatlarından əvvəl template məzmunu
             logger.debug("Original template content: {}", htmlTemplate.substring(0, Math.min(100, htmlTemplate.length())));
 
             String result = htmlTemplate
@@ -87,7 +84,7 @@ public class EmailService {
             helper.setFrom(myEmail);
             helper.setTo(myEmail);
             helper.setSubject(subject);
-            helper.setText(htmlBody, true); // true = HTML content
+            helper.setText(htmlBody, true);
 
             mailSender.send(message);
             logger.info("HTML email sent successfully.");

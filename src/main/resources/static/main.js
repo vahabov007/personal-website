@@ -100,10 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const contactForm = document.getElementById('contactForm');
     const formSuccess = document.getElementById('formSuccess');
-    const formError = document.getElementById('formError');
     const sendButton = contactForm ? contactForm.querySelector('button[type="submit"]') : null;
 
-    // YENİLƏNMİŞ: Topic səhvi əlavə edildi
     const errors = {
         topic: document.getElementById('error-topic'),
         yourName: document.getElementById('error-yourName'),
@@ -115,8 +113,10 @@ document.addEventListener('DOMContentLoaded', function() {
         Object.values(errors).forEach(el => {
             if (el) el.textContent = '';
         });
-        if (formSuccess) formSuccess.textContent = '';
-        if (formError) formError.textContent = '';
+        if (formSuccess) {
+            formSuccess.textContent = '';
+            formSuccess.style.color = ''; // Rəngi sıfırla
+        }
     }
 
     if (contactForm && sendButton) {
@@ -124,79 +124,87 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault();
             clearErrors();
 
-            // YENİLƏNMİŞ: Topic dəyərini əldə edirik
             const topic = document.getElementById('topic').value;
             const yourName = document.getElementById('yourName').value.trim();
             const email = document.getElementById('email').value.trim();
             const message = document.getElementById('message').value.trim();
             let isValid = true;
 
-            // YENİLƏNMİŞ: Topic validasiyası
+            // Validation
             if (!topic) {
                 if (errors.topic) errors.topic.textContent = 'Please select a topic.';
                 isValid = false;
             }
 
-            if (yourName.length < 3 || yourName.length > 40) {
+            if (!yourName || yourName.length < 3 || yourName.length > 40) {
                 if (errors.yourName) errors.yourName.textContent = 'Your name must be between 3 and 40 characters.';
-                isValid = false;
-            } else if (!yourName) {
-                if (errors.yourName) errors.yourName.textContent = 'Name cannot be empty.';
                 isValid = false;
             }
 
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
+            if (!email || !emailRegex.test(email)) {
                 if (errors.email) errors.email.textContent = 'Please enter a valid email address.';
-                isValid = false;
-            } else if (!email) {
-                if (errors.email) errors.email.textContent = 'Email cannot be empty.';
                 isValid = false;
             }
 
-            // Məlumatın minimum uzunluğunun yoxlanılması əlavə olundu
             if (!message || message.length < 10 || message.length > 400) {
                 if (errors.message) errors.message.textContent = 'Message must be between 10 and 400 characters.';
                 isValid = false;
             }
 
             if (!isValid) {
-                if (formError) formError.textContent = 'Please correct the errors in the form.';
                 return;
             }
 
             sendButton.disabled = true;
             sendButton.textContent = 'Message is sending... Please wait.';
 
-            // YENİLƏNMİŞ: Topic dəyəri formData obyektiə əlavə edildi
-            const formData = { topic, yourName, email, message };
+            const formData = {
+                yourName: yourName,
+                topic: topic,
+                email: email,
+                message: message
+            };
+
             const apiUrl = 'https://www.vahabvahabov.site/api/contact';
 
             fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                })
-                .then(response => {
-                    if (!response.ok) return response.json().then(errorData => Promise.reject(errorData));
-                    return response.text();
-                })
-                .then(data => {
-                    if (formSuccess) formSuccess.textContent = data || 'Message sent successfully!';
-                    if (formError) formError.textContent = '';
-                    contactForm.reset();
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    if (formError) formError.textContent = 'Failed to send message: ' + (error?.message || 'Unknown error.');
-                    if (formSuccess) formSuccess.textContent = '';
-                })
-                .finally(() => {
-                    sendButton.disabled = false;
-                    sendButton.textContent = 'Send Message';
-                });
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+                    });
+                }
+                return response.text();
+            })
+            .then(data => {
+                if (formSuccess) {
+                    formSuccess.textContent = data || 'Message sent successfully!';
+                    formSuccess.style.color = '#10B981'; // Yaşıl rəng
+                }
+                contactForm.reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                if (formSuccess) {
+                    formSuccess.textContent = 'Failed to send message: ' + error.message;
+                    formSuccess.style.color = '#EF4444'; // Qırmızı rəng
+                }
+            })
+            .finally(() => {
+                sendButton.disabled = false;
+                sendButton.textContent = 'Send Message';
+            });
         });
     }
+
     const projectVideos = document.querySelectorAll('#projects video');
     const videoObserver = new IntersectionObserver(entries => {
         entries.forEach(entry => entry.isIntersecting ? entry.target.play() : entry.target.pause());
@@ -206,6 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
         threshold: 0.7
     });
     projectVideos.forEach(video => videoObserver.observe(video));
+
     const fadeInSections = document.querySelectorAll('.fade-in-section');
     const fadeInObserver = new IntersectionObserver(entries => {
         entries.forEach(entry => {
