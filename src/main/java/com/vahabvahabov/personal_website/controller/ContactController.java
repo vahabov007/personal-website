@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
-public class ContactController extends ResponseEntityExceptionHandler {
+public class ContactController {
 
     private static final Logger logger = LoggerFactory.getLogger(ContactController.class);
 
@@ -39,11 +38,7 @@ public class ContactController extends ResponseEntityExceptionHandler {
                 contactInfo.getMessage() != null ? contactInfo.getMessage().length() : 0);
 
         try {
-            logger.info("Validation passed for contact form");
-
             String subject = "[" + contactInfo.getTopic() + "] New Contact Request from Website: " + contactInfo.getYourName();
-            logger.info("Email subject: {}", subject);
-
             String htmlBody = emailService.buildHtmlEmailBody(
                     contactInfo.getYourName(),
                     contactInfo.getEmail(),
@@ -51,21 +46,17 @@ public class ContactController extends ResponseEntityExceptionHandler {
                     contactInfo.getMessage()
             );
 
-            logger.info("HTML body created successfully, sending email...");
             emailService.sendHtmlEmail(subject, htmlBody);
 
-            logger.info("HTML Email sent successfully.");
             Map<String, String> response = new HashMap<>();
             response.put("message", "Message sent successfully!");
             return ResponseEntity.ok(response);
 
         } catch (IOException e) {
-            logger.error("Error loading or processing email template: {}", e.getMessage(), e);
             Map<String, String> errorResponse = new HashMap<>();
             errorResponse.put("error", "Failed to load email template: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         } catch (Exception e) {
-            logger.error("An error occurred while sending email: {}", e.getMessage(), e);
             Map<String, String> errorResponse = new HashMap<>();
             errorResponse.put("error", "Failed to send message: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
@@ -77,7 +68,6 @@ public class ContactController extends ResponseEntityExceptionHandler {
         List<String> errors = ex.getBindingResult().getFieldErrors()
                 .stream().map(FieldError::getDefaultMessage)
                 .collect(Collectors.toList());
-        logger.error("Validation failed with errors: {}", errors);
         Map<String, List<String>> errorResponse = new HashMap<>();
         errorResponse.put("errors", errors);
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);

@@ -149,13 +149,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) {
-                const errData = await response.json(); // 400 və 500 üçün JSON gözlənir
+                const errData = await response.json(); // 400 və 500 üçün JSON
                 handleServerErrors(errData);
                 return;
             }
 
-            const successMsg = await response.text(); // Uğurlu cavab üçün text
-            formSuccess.textContent = successMsg;
+            const successData = await response.json(); // ✅ JSON oxu
+            formSuccess.textContent = successData.message; // yalnız message göstər
             contactForm.reset(); // Formu təmizlə
             errorTopic.textContent = '';
             errorYourName.textContent = '';
@@ -164,9 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Form submission error:', error);
             formSuccess.textContent = 'An unexpected error occurred. Please try again later.';
-            if (error instanceof SyntaxError) {
-                formSuccess.textContent = 'Server error: Invalid response format.';
-            }
         }
     });
 
