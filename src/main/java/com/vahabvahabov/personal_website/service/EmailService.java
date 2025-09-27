@@ -33,20 +33,13 @@ public class EmailService {
         logger.info("Building HTML email body for contact form with topic: {}", topic);
 
         try {
-            // Dəqiq path təyin et
-            Resource resource = new ClassPathResource("static/templates/email-template.html");
-            logger.info("Looking for template at: {}", resource.getURI());
+            ClassPathResource resource = new ClassPathResource("templates/email-template.html");
+            logger.info("Looking for template at: {}", resource.getPath());
             logger.info("Template exists: {}", resource.exists());
 
             if (!resource.exists()) {
-                // Əlavə yoxlama
-                resource = new ClassPathResource("templates/email-template.html");
-                logger.info("Trying alternative path. Exists: {}", resource.exists());
-
-                if (!resource.exists()) {
-                    logger.error("Email template not found in any location");
-                    throw new IOException("Email template not found");
-                }
+                logger.error("Email template not found at: templates/email-template.html");
+                throw new IOException("Email template not found at: templates/email-template.html");
             }
 
             String htmlTemplate = StreamUtils.copyToString(resource.getInputStream(), StandardCharsets.UTF_8);
@@ -55,9 +48,8 @@ public class EmailService {
             String result = htmlTemplate
                     .replace("${topic}", topic != null ? topic : "")
                     .replace("${yourName}", name != null ? name : "")
-                    .replace("${name}", name != null ? name : "")
                     .replace("${email}", email != null ? email : "")
-                    .replace("${message_content}", message != null ? message.replace("\n", "<br>") : "")
+                    .replace("${message_content}", message != null ? message : "")
                     .replace("${current_date}", LocalDate.now().toString());
 
             logger.info("Template processing completed successfully");

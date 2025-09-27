@@ -493,11 +493,7 @@
     </p>
 
     <form id="contactForm" class="max-w-lg mx-auto">
-        <select
-                id="topic"
-                name="topic"
-                class="w-full mb-1 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500"
-        >
+        <select id="topic" name="topic" class="w-full mb-1 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500" required>
             <option value="" disabled selected>Select Topic</option>
             <option value="Job Opportunity">Job Opportunity</option>
             <option value="Project Collaboration">Project Collaboration</option>
@@ -513,6 +509,7 @@
                 name="yourName"
                 placeholder="Your Name"
                 class="w-full mb-1 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500"
+                required
         />
         <span id="error-yourName" class="text-red-500 text-sm mb-4 block"></span>
 
@@ -522,6 +519,7 @@
                 name="email"
                 placeholder="Your Email"
                 class="w-full mb-1 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500"
+                required
         />
         <span id="error-email" class="text-red-500 text-sm mb-4 block"></span>
 
@@ -531,6 +529,7 @@
                 rows="5"
                 placeholder="Your Message"
                 class="w-full mb-4 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500"
+                required
         ></textarea>
         <span id="error-message" class="text-red-500 text-sm mb-6 block"></span>
 

@@ -1,257 +1,192 @@
-// main.js
-document.addEventListener('DOMContentLoaded', function() {
-    // Age calculator
-    calculateAge();
-
-    // Skill modals
-    setupSkillModals();
-
-    // Contact form handling
-    setupContactForm();
-
-    // Navigation
-    setupNavigation();
-});
-
-function calculateAge() {
-    const birthYear = 2006;
-    const currentYear = new Date().getFullYear();
-    const age = currentYear - birthYear;
-    document.getElementById('age-placeholder').textContent = age;
-}
-
-function setupSkillModals() {
-    const skillCards = document.querySelectorAll('.skill-card');
-    const closeButtons = document.querySelectorAll('.close-modal');
-
-    skillCards.forEach(card => {
-        card.addEventListener('click', function(e) {
-            if (!e.target.classList.contains('view-details-btn')) {
-                return;
-            }
-
-            const skill = this.getAttribute('data-skill');
-            const modal = document.getElementById(`${skill}-modal`);
-
-            if (modal) {
-                modal.classList.remove('hidden');
-                setTimeout(() => {
-                    modal.classList.add('opacity-100');
-                    modal.querySelector('.modal-content').classList.remove('scale-95');
-                }, 10);
-            }
-        });
-    });
-
-    closeButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const modal = this.closest('.skill-modal');
-            modal.classList.remove('opacity-100');
-            modal.querySelector('.modal-content').classList.add('scale-95');
-
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
-        });
-    });
-
-    // Close modal when clicking outside
-    document.querySelectorAll('.skill-modal').forEach(modal => {
-        modal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.classList.remove('opacity-100');
-                this.querySelector('.modal-content').classList.add('scale-95');
-
-                setTimeout(() => {
-                    this.classList.add('hidden');
-                }, 300);
-            }
-        });
-    });
-}
-
-function setupContactForm() {
-    const contactForm = document.getElementById('contactForm');
-    const successMessage = document.getElementById('formSuccess');
-
-    if (!contactForm) return;
-
-    contactForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-
-        // Reset errors and messages
-        document.querySelectorAll('[id^="error-"]').forEach(el => {
-            el.textContent = '';
-        });
-        successMessage.textContent = '';
-        successMessage.className = 'text-green-400 mt-6 font-semibold text-center';
-
-        // Get form data
-        const formData = {
-            topic: document.getElementById('topic').value,
-            yourName: document.getElementById('yourName').value,
-            email: document.getElementById('email').value,
-            message: document.getElementById('message').value
-        };
-
-        // Basic validation
-        let isValid = true;
-
-        if (!formData.topic) {
-            document.getElementById('error-topic').textContent = 'Topic is required';
-            isValid = false;
-        }
-
-        if (!formData.yourName || formData.yourName.length < 3) {
-            document.getElementById('error-yourName').textContent = 'Name must be at least 3 characters';
-            isValid = false;
-        }
-
-        if (!formData.email || !isValidEmail(formData.email)) {
-            document.getElementById('error-email').textContent = 'Valid email is required';
-            isValid = false;
-        }
-
-        if (!formData.message || formData.message.length < 10) {
-            document.getElementById('error-message').textContent = 'Message must be at least 10 characters';
-            isValid = false;
-        }
-
-        if (!isValid) return;
-
-        // Show loading state
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Sending...';
-        submitBtn.disabled = true;
-
-        try {
-            // ƏSAS DÜZƏLİŞ: Eyni domain-ə göndər
-            const currentDomain = window.location.origin;
-            const apiUrl = `${currentDomain}/api/contact`;
-
-            console.log('Sending request to:', apiUrl);
-
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            });
-
-            console.log('Response status:', response.status);
-
-            if (response.ok) {
-                const result = await response.text();
-                successMessage.textContent = result || 'Message sent successfully!';
-                contactForm.reset();
-            } else {
-                const errorData = await response.text();
-                throw new Error(errorData || `Server error: ${response.status}`);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            successMessage.textContent = 'Error: ' + error.message;
-            successMessage.className = 'text-red-400 mt-6 font-semibold text-center';
-        } finally {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }
-    });
-}
-
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-function setupNavigation() {
-    // Logo dropdown
+document.addEventListener('DOMContentLoaded', () => {
+    // Logo Tooltip
     const logoButton = document.getElementById('logo-button');
-    const logoDropdown = document.getElementById('logo-dropdown');
     const logoTooltip = document.getElementById('logo-tooltip');
+    logoButton.addEventListener('mouseenter', () => logoTooltip.classList.add('opacity-100'));
+    logoButton.addEventListener('mouseleave', () => logoTooltip.classList.remove('opacity-100'));
 
-    if (logoButton) {
-        logoButton.addEventListener('mouseenter', function() {
-            logoTooltip.classList.remove('opacity-0');
-            logoTooltip.classList.add('opacity-100');
-        });
+    // Logo Dropdown
+    const logoDropdown = document.getElementById('logo-dropdown');
+    logoButton.addEventListener('click', () => logoDropdown.classList.toggle('hidden'));
 
-        logoButton.addEventListener('mouseleave', function() {
-            logoTooltip.classList.remove('opacity-100');
-            logoTooltip.classList.add('opacity-0');
-        });
-
-        logoButton.addEventListener('click', function() {
-            logoDropdown.classList.toggle('hidden');
-        });
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!logoButton.contains(e.target)) {
-                logoDropdown.classList.add('hidden');
-            }
-        });
-    }
-
-    // Mobile menu
+    // Mobile Menu Dropdown
     const menuButton = document.getElementById('menu-button');
     const menuDropdown = document.getElementById('menu-dropdown');
+    menuButton.addEventListener('click', () => {
+        menuDropdown.classList.toggle('hidden');
+        menuDropdown.classList.toggle('opacity-0');
+        menuDropdown.classList.toggle('scale-95');
+    });
 
-    if (menuButton && menuDropdown) {
-        menuButton.addEventListener('click', function() {
-            const isHidden = menuDropdown.classList.contains('opacity-0');
-
-            if (isHidden) {
-                menuDropdown.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
-                menuDropdown.classList.add('opacity-100', 'pointer-events-auto', 'scale-100');
-            } else {
-                menuDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
-                menuDropdown.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+    // Typewriter Effect
+    const typewriterText = document.querySelector('.typewriter-text');
+    if (typewriterText) {
+        const text = typewriterText.textContent;
+        typewriterText.textContent = '';
+        let i = 0;
+        const type = () => {
+            if (i < text.length) {
+                typewriterText.textContent += text.charAt(i);
+                i++;
+                setTimeout(type, 50);
             }
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!menuButton.contains(e.target) && !menuDropdown.contains(e.target)) {
-                menuDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
-                menuDropdown.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
-            }
-        });
+        };
+        type();
     }
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
+    // Age Placeholder
+    const agePlaceholder = document.getElementById('age-placeholder');
+    if (agePlaceholder) {
+        const birthDate = new Date('2007-01-01');
+        const ageDifMs = Date.now() - birthDate.getTime();
+        const ageDate = new Date(ageDifMs);
+        agePlaceholder.textContent = Math.abs(ageDate.getUTCFullYear() - 1970);
+    }
 
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
+    // Skill Modals
+    const skillCards = document.querySelectorAll('.skill-card');
+    const skillModals = document.querySelectorAll('.skill-modal');
+    const closeModals = document.querySelectorAll('.close-modal');
+    skillCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const skill = card.dataset.skill;
+            const modal = document.getElementById(`${skill}-modal`);
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('.modal-content').classList.remove('scale-95');
+            }, 10);
+        });
+    });
+    closeModals.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const modal = btn.closest('.skill-modal');
+            modal.classList.add('opacity-0');
+            modal.querySelector('.modal-content').classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        });
+    });
 
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+    // Fade-in Sections
+    const fadeInSections = document.querySelectorAll('.fade-in-section');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('opacity-100', 'translate-y-0');
             }
         });
     });
-}
+    fadeInSections.forEach(section => observer.observe(section));
 
-// Fade-in animation for project cards
-const fadeInSections = document.querySelectorAll('.fade-in-section');
+    // Contact Form Handling
+    const contactForm = document.getElementById('contactForm');
+    const formSuccess = document.getElementById('formSuccess');
+    const errorTopic = document.getElementById('error-topic');
+    const errorYourName = document.getElementById('error-yourName');
+    const errorEmail = document.getElementById('error-email');
+    const errorMessage = document.getElementById('error-message');
 
-const fadeInObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in-visible');
-            fadeInObserver.unobserve(entry.target);
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        formSuccess.textContent = '';
+
+        // Client-side validation
+        const topic = document.getElementById('topic').value.trim();
+        const yourName = document.getElementById('yourName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        let valid = true;
+
+        errorTopic.textContent = '';
+        if (!topic || topic === '') {
+            errorTopic.textContent = 'Topic is required. Please select one.';
+            valid = false;
+        }
+
+        errorYourName.textContent = '';
+        if (!yourName) {
+            errorYourName.textContent = 'Name cannot be empty.';
+            valid = false;
+        } else if (yourName.length < 3 || yourName.length > 40) {
+            errorYourName.textContent = 'Your name must be between 3 and 40 characters.';
+            valid = false;
+        }
+
+        errorEmail.textContent = '';
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email) {
+            errorEmail.textContent = 'Email cannot be empty.';
+            valid = false;
+        } else if (!emailRegex.test(email)) {
+            errorEmail.textContent = 'Email should be valid.';
+            valid = false;
+        }
+
+        errorMessage.textContent = '';
+        if (!message) {
+            errorMessage.textContent = 'Message cannot be empty.';
+            valid = false;
+        } else if (message.length < 10 || message.length > 400) {
+            errorMessage.textContent = 'Message must be between 10 and 400 characters.';
+            valid = false;
+        }
+
+        if (!valid) return;
+
+        // Send request
+        const data = { topic, yourName, email, message };
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) {
+                const errData = await response.json();
+                throw errData;
+            }
+
+            const successMsg = await response.text();
+            formSuccess.textContent = successMsg;
+            contactForm.reset();
+            // Clear errors after success
+            errorTopic.textContent = '';
+            errorYourName.textContent = '';
+            errorEmail.textContent = '';
+            errorMessage.textContent = '';
+        } catch (error) {
+            console.error('Form submission error:', error); // Bu, konsolda obyekti göstərməsin, yalnız log etsin
+            // Clear success message
+            formSuccess.textContent = '';
+
+            // Handle Spring validation errors (fieldErrors array)
+            if (error.fieldErrors && Array.isArray(error.fieldErrors)) {
+                error.fieldErrors.forEach(err => {
+                    const msg = err.defaultMessage || 'Validation error';
+                    switch (err.field) {
+                        case 'topic':
+                            errorTopic.textContent = msg;
+                            break;
+                        case 'yourName':
+                            errorYourName.textContent = msg;
+                            break;
+                        case 'email':
+                            errorEmail.textContent = msg;
+                            break;
+                        case 'message':
+                            errorMessage.textContent = msg;
+                            break;
+                        default:
+                            formSuccess.textContent = msg; // Generic error
+                    }
+                });
+            } else if (error.message) {
+                formSuccess.textContent = error.message; // Other errors (e.g., 500)
+            } else {
+                formSuccess.textContent = 'An error occurred. Please try again.';
+            }
         }
     });
-}, { threshold: 0.1 });
-
-fadeInSections.forEach(section => {
-    fadeInObserver.observe(section);
 });

@@ -16,21 +16,31 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
-                .allowedOriginPatterns("*") // Bütün originlərə icazə ver
+                .allowedOrigins(
+                        "https://vahabvahabov.site",
+                        "https://www.vahabvahabov.site",
+                        "https://personal-website-ketc.onrender.com",
+                        "http://localhost:8080",
+                        "http://127.0.0.1:8080"
+                )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
-                .allowCredentials(true)
-                .maxAge(3600);
+                .allowCredentials(true);
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(Arrays.asList("*")); // Bütün domainlərə icazə
+        configuration.setAllowedOrigins(Arrays.asList(
+                "https://vahabvahabov.site",
+                "https://www.vahabvahabov.site",
+                "https://personal-website-ketc.onrender.com",
+                "http://localhost:8080",
+                "http://127.0.0.1:8080"
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
-        configuration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/api/**", configuration);
