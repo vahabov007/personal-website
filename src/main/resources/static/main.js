@@ -102,7 +102,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const formSuccess = document.getElementById('formSuccess');
     const formError = document.getElementById('formError');
     const sendButton = contactForm ? contactForm.querySelector('button[type="submit"]') : null;
+
+    // YENİLƏNMİŞ: Topic səhvi əlavə edildi
     const errors = {
+        topic: document.getElementById('error-topic'),
         yourName: document.getElementById('error-yourName'),
         email: document.getElementById('error-email'),
         message: document.getElementById('error-message')
@@ -121,10 +124,18 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault();
             clearErrors();
 
+            // YENİLƏNMİŞ: Topic dəyərini əldə edirik
+            const topic = document.getElementById('topic').value;
             const yourName = document.getElementById('yourName').value.trim();
             const email = document.getElementById('email').value.trim();
             const message = document.getElementById('message').value.trim();
             let isValid = true;
+
+            // YENİLƏNMİŞ: Topic validasiyası
+            if (!topic) {
+                if (errors.topic) errors.topic.textContent = 'Please select a topic.';
+                isValid = false;
+            }
 
             if (yourName.length < 3 || yourName.length > 40) {
                 if (errors.yourName) errors.yourName.textContent = 'Your name must be between 3 and 40 characters.';
@@ -143,8 +154,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 isValid = false;
             }
 
-            if (!message || message.length > 400) {
-                if (errors.message) errors.message.textContent = 'Message cannot be empty and must be shorter than 400 characters.';
+            // Məlumatın minimum uzunluğunun yoxlanılması əlavə olundu
+            if (!message || message.length < 10 || message.length > 400) {
+                if (errors.message) errors.message.textContent = 'Message must be between 10 and 400 characters.';
                 isValid = false;
             }
 
@@ -156,7 +168,8 @@ document.addEventListener('DOMContentLoaded', function() {
             sendButton.disabled = true;
             sendButton.textContent = 'Message is sending... Please wait.';
 
-            const formData = { yourName, email, message };
+            // YENİLƏNMİŞ: Topic dəyəri formData obyektiə əlavə edildi
+            const formData = { topic, yourName, email, message };
             const apiUrl = 'https://www.vahabvahabov.site/api/contact';
 
             fetch(apiUrl, {

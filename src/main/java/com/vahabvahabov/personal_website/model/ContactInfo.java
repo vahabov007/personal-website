@@ -16,6 +16,9 @@ public class ContactInfo {
     @Size(min = 3, max = 40, message = "Your name could not be determined.")
     private String yourName;
 
+    @NotBlank(message = "Topic is required.")
+    private String topic;
+
     @Email(message = "Email should be valid.")
     @NotBlank(message = "Email cannot be empty.")
     private String email;

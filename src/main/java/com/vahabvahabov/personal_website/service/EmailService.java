@@ -1,39 +1,100 @@
 package com.vahabvahabov.personal_website.service;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StreamUtils;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 
 @Service
 public class EmailService {
 
-    private static final Logger logger =  LoggerFactory.getLogger(EmailService.class);
+    private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
 
     @Autowired
     private JavaMailSender mailSender;
-    public void sendEmail(String to, String subject, String body) {
-        logger.info("Email göndərmə metodu çağırıldı. Alıcı: {}", to);
 
-        SimpleMailMessage message = new SimpleMailMessage();
+    @Value("${spring.mail.username}")
+    private String myEmail;
 
-
-        message.setFrom("vahab.vahabov07@gmail.com");
-
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(body);
+    public String buildHtmlEmailBody(String name, String email, String topic, String message) throws IOException {
+        logger.info("Building HTML email body for contact form with topic: {}", topic);
 
         try {
+            // Debug: Template faylının yolunu yoxla
+            ClassPathResource resource = new ClassPathResource("templates/email-template.html");
+            logger.info("Looking for template at: {}", resource.getPath());
+            logger.info("Template exists: {}", resource.exists());
+            logger.info("Template URL: {}", resource.getURL());
+
+            if (!resource.exists()) {
+                logger.error("Email template not found at: templates/email-template.html");
+                // Bütün mövcud faylları list et
+                ClassPathResource templatesDir = new ClassPathResource("templates/");
+                logger.info("Available files in templates directory: {}",
+                        templatesDir.getFile().list());
+                throw new IOException("Email template not found at: templates/email-template.html");
+            }
+
+            String htmlTemplate = StreamUtils.copyToString(resource.getInputStream(), StandardCharsets.UTF_8);
+            logger.info("Template loaded successfully. Length: {} characters", htmlTemplate.length());
+
+            // Debug: Replace əməliyyatlarından əvvəl template məzmunu
+            logger.debug("Original template content: {}", htmlTemplate.substring(0, Math.min(100, htmlTemplate.length())));
+
+            String result = htmlTemplate
+                    .replace("${topic}", topic != null ? topic : "")
+                    .replace("${name}", name != null ? name : "")
+                    .replace("${email}", email != null ? email : "")
+                    .replace("${message_content}", message != null ? message : "")
+                    .replace("${current_date}", LocalDate.now().toString());
+
+            logger.info("Template processing completed successfully");
+            logger.debug("Processed template content: {}", result.substring(0, Math.min(100, result.length())));
+
+            return result;
+
+        } catch (Exception e) {
+            logger.error("Error in buildHtmlEmailBody: {}", e.getMessage(), e);
+            throw e;
+        }
+    }
+
+    public void sendHtmlEmail(String subject, String htmlBody) {
+        logger.info("Attempting to send HTML email. Subject: {}", subject);
+        logger.debug("HTML body length: {}", htmlBody.length());
+
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(
+                    message,
+                    MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+                    StandardCharsets.UTF_8.name()
+            );
+
+            helper.setFrom(myEmail);
+            helper.setTo(myEmail);
+            helper.setSubject(subject);
+            helper.setText(htmlBody, true); // true = HTML content
 
             mailSender.send(message);
-            logger.info("Email uğurla göndərildi. Alıcı: {}", to);
-        } catch (MailException e) {
-            logger.error("Email göndərərkən MailException baş verdi: {}", e.getMessage(), e);
-            throw new RuntimeException("Email göndərilmədi: " + e.getMessage(), e);
+            logger.info("HTML email sent successfully.");
+
+        } catch (MailException | MessagingException e) {
+            logger.error("Failed to send HTML email: {}", e.getMessage(), e);
+            throw new RuntimeException("Email not sent: " + e.getMessage(), e);
         }
     }
 }

@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = {
         "https://vahabvahabov.site",
         "https://www.vahabvahabov.site",
-        "http://localhost:8080",
         "https://personal-website-ketc.onrender.com"
 })
 public class ContactController {
@@ -22,29 +23,37 @@ public class ContactController {
 
     private final EmailService emailService;
 
-
     public ContactController(EmailService emailService) {
         this.emailService = emailService;
     }
 
     @PostMapping("/contact")
     public ResponseEntity<String> handleContactForm(@Valid @RequestBody ContactInfo contactInfo) {
-        logger.info("Kontakt forması sorğusu qəbul edildi. Ad: {}, Email: {}", contactInfo.getYourName(), contactInfo.getEmail());
+        logger.info("Contact form request accepted. Name: {}, Topic: {}, Email: {}",
+                contactInfo.getYourName(), contactInfo.getTopic(), contactInfo.getEmail());
+
         try {
-            String recipientEmail = "vahab.vahabov07@gmail.com"; //
+            String subject = "[" + contactInfo.getTopic() + "] New Contact Request from Website: " + contactInfo.getYourName();
+            logger.info("Email subject: {}", subject);
 
-            String subject = "Yeni Mesaj: " + contactInfo.getYourName();
-            String body = "Ad: " + contactInfo.getYourName() + "\n" +
-                    "Email: " + contactInfo.getEmail() + "\n" +
-                    "Mesaj: " + contactInfo.getMessage();
+            String htmlBody = emailService.buildHtmlEmailBody(
+                    contactInfo.getYourName(),
+                    contactInfo.getEmail(),
+                    contactInfo.getTopic(),
+                    contactInfo.getMessage()
+            );
 
-            emailService.sendEmail(recipientEmail, subject, body);
-            logger.info("Email göndərmə cəhdi tamamlandı. Mesaj göndərildi: {}", recipientEmail);
+            logger.info("HTML body created successfully, sending email...");
+            emailService.sendHtmlEmail(subject, htmlBody);
 
+            logger.info("HTML Email sent successfully.");
             return ResponseEntity.ok("Message sent successfully!");
+
+        } catch (IOException e) {
+            logger.error("Error loading or processing email template: {}", e.getMessage(), e);
+            return ResponseEntity.status(500).body("Failed to load email template: " + e.getMessage());
         } catch (Exception e) {
-            logger.error("Email göndərərkən xəta baş verdi: {}", e.getMessage(), e);
-            e.printStackTrace();
+            logger.error("An error occurred while sending email: {}", e.getMessage(), e);
             return ResponseEntity.status(500).body("Failed to send message: " + e.getMessage());
         }
     }

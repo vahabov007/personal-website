@@ -493,6 +493,23 @@
     </p>
 
     <form id="contactForm" class="max-w-lg mx-auto">
+
+
+        <select
+                id="topic"
+                name="topic"
+                class="w-full mb-1 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500"
+        >
+            <option value="" disabled selected>Select Topic</option>
+            <option value="Job Opportunity">Job Opportunity</option>
+            <option value="Project Collaboration">Project Collaboration</option>
+            <option value="General Inquiry">General Inquiry</option>
+            <option value="Feedback/Bug Report">Feedback / Bug Report</option>
+            <option value="Feedback/Bug Report">Others</option>
+        </select>
+
+        <span id="error-topic" class="text-red-500 text-sm mb-4 block"></span>
+
         <input
                 type="text"
                 id="yourName"
@@ -501,6 +518,7 @@
                 class="w-full mb-1 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500"
         />
         <span id="error-yourName" class="text-red-500 text-sm mb-4 block"></span>
+
 
         <input
                 type="email"
@@ -551,12 +569,13 @@
             <img src="https://www.eolymp.com/favicon.ico" alt="Eolymp" class="w-8 h-8" />
         </a>
     </div>
-
 </section>
+
 <footer class="bg-gray-800 text-white text-center py-4 text-sm">
     <p>© 2025 Vahab Vahabov. All rights reserved.</p>
     <p class="mt-1">Built with <span class="font-semibold text-blue-400">Spring Boot</span> & <span class="font-semibold text-teal-300">TailwindCSS</span></p>
 </footer>
+
 </body>
 <script src="main.js"></script>
 </html>
