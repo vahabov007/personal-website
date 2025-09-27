@@ -32,33 +32,21 @@ public class EmailService {
     public String buildHtmlEmailBody(String name, String email, String topic, String message) throws IOException {
         logger.info("Building HTML email body for contact form with topic: {}", topic);
 
-        try {
-            ClassPathResource resource = new ClassPathResource("templates/email-template.html");
-            logger.info("Looking for template at: {}", resource.getPath());
-            logger.info("Template exists: {}", resource.exists());
-
-            if (!resource.exists()) {
-                logger.error("Email template not found at: templates/email-template.html");
-                throw new IOException("Email template not found at: templates/email-template.html");
-            }
-
-            String htmlTemplate = StreamUtils.copyToString(resource.getInputStream(), StandardCharsets.UTF_8);
-            logger.info("Template loaded successfully. Length: {} characters", htmlTemplate.length());
-
-            String result = htmlTemplate
-                    .replace("${topic}", topic != null ? topic : "")
-                    .replace("${yourName}", name != null ? name : "")
-                    .replace("${email}", email != null ? email : "")
-                    .replace("${message_content}", message != null ? message : "")
-                    .replace("${current_date}", LocalDate.now().toString());
-
-            logger.info("Template processing completed successfully");
-            return result;
-
-        } catch (Exception e) {
-            logger.error("Error in buildHtmlEmailBody: {}", e.getMessage(), e);
-            throw e;
+        ClassPathResource resource = new ClassPathResource("templates/email-template.html");
+        if (!resource.exists()) {
+            logger.error("Email template not found at: templates/email-template.html");
+            throw new IOException("Email template not found at: templates/email-template.html");
         }
+
+        String htmlTemplate = StreamUtils.copyToString(resource.getInputStream(), StandardCharsets.UTF_8);
+        String result = htmlTemplate
+                .replace("${topic}", topic != null ? topic : "")
+                .replace("${yourName}", name != null ? name : "")
+                .replace("${email}", email != null ? email : "")
+                .replace("${message_content}", message != null ? message : "")
+                .replace("${current_date}", LocalDate.now().toString());
+
+        return result;
     }
 
     public void sendHtmlEmail(String subject, String htmlBody) {

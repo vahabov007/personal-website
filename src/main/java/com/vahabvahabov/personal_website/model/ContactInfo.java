@@ -24,6 +24,6 @@ public class ContactInfo {
     private String email;
 
     @NotBlank(message = "Message cannot be empty.")
-    @Size(min = 5, max = 400, message = "Message must be between 10 and 400 characters.")
+    @Size(min = 10, max = 400, message = "Message must be between 10 and 400 characters.")
     private String message;
 }

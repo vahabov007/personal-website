@@ -38,9 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const agePlaceholder = document.getElementById('age-placeholder');
     if (agePlaceholder) {
         const birthDate = new Date('2007-01-01');
-        const ageDifMs = Date.now() - birthDate.getTime();
+        const today = new Date('2025-09-27T17:18:00+04:00'); // Cari vaxt: 05:18 PM +04
+        const ageDifMs = today - birthDate;
         const ageDate = new Date(ageDifMs);
-        agePlaceholder.textContent = Math.abs(ageDate.getUTCFullYear() - 1970);
+        agePlaceholder.textContent = Math.abs(ageDate.getUTCFullYear() - 1970); // 18 il
     }
 
     // Skill Modals
@@ -88,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        formSuccess.textContent = '';
+        formSuccess.textContent = ''; // Success mesajını təmizlə
 
         // Client-side validation
         const topic = document.getElementById('topic').value.trim();
@@ -98,12 +99,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let valid = true;
 
+        // Topic validation
         errorTopic.textContent = '';
         if (!topic || topic === '') {
-            errorTopic.textContent = 'Topic is required. Please select one.';
+            errorTopic.textContent = 'Topic is required.';
             valid = false;
         }
 
+        // Name validation
         errorYourName.textContent = '';
         if (!yourName) {
             errorYourName.textContent = 'Name cannot be empty.';
@@ -113,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
             valid = false;
         }
 
+        // Email validation
         errorEmail.textContent = '';
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email) {
@@ -123,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
             valid = false;
         }
 
+        // Message validation
         errorMessage.textContent = '';
         if (!message) {
             errorMessage.textContent = 'Message cannot be empty.';
@@ -144,49 +149,51 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) {
-                const errData = await response.json();
-                throw errData;
+                const errData = await response.json(); // 400 və 500 üçün JSON gözlənir
+                handleServerErrors(errData);
+                return;
             }
 
-            const successMsg = await response.text();
+            const successMsg = await response.text(); // Uğurlu cavab üçün text
             formSuccess.textContent = successMsg;
-            contactForm.reset();
-            // Clear errors after success
+            contactForm.reset(); // Formu təmizlə
             errorTopic.textContent = '';
             errorYourName.textContent = '';
             errorEmail.textContent = '';
             errorMessage.textContent = '';
         } catch (error) {
-            console.error('Form submission error:', error); // Bu, konsolda obyekti göstərməsin, yalnız log etsin
-            // Clear success message
-            formSuccess.textContent = '';
-
-            // Handle Spring validation errors (fieldErrors array)
-            if (error.fieldErrors && Array.isArray(error.fieldErrors)) {
-                error.fieldErrors.forEach(err => {
-                    const msg = err.defaultMessage || 'Validation error';
-                    switch (err.field) {
-                        case 'topic':
-                            errorTopic.textContent = msg;
-                            break;
-                        case 'yourName':
-                            errorYourName.textContent = msg;
-                            break;
-                        case 'email':
-                            errorEmail.textContent = msg;
-                            break;
-                        case 'message':
-                            errorMessage.textContent = msg;
-                            break;
-                        default:
-                            formSuccess.textContent = msg; // Generic error
-                    }
-                });
-            } else if (error.message) {
-                formSuccess.textContent = error.message; // Other errors (e.g., 500)
-            } else {
-                formSuccess.textContent = 'An error occurred. Please try again.';
+            console.error('Form submission error:', error);
+            formSuccess.textContent = 'An unexpected error occurred. Please try again later.';
+            if (error instanceof SyntaxError) {
+                formSuccess.textContent = 'Server error: Invalid response format.';
             }
         }
     });
+
+    // Server-side validation errors handling
+    function handleServerErrors(error) {
+        formSuccess.textContent = ''; // Önceki success mesajını təmizlə
+        errorTopic.textContent = '';
+        errorYourName.textContent = '';
+        errorEmail.textContent = '';
+        errorMessage.textContent = '';
+
+        console.error('Server error response:', error);
+
+        if (error.errors && Array.isArray(error.errors)) {
+            error.errors.forEach(err => {
+                if (err.includes('Topic')) errorTopic.textContent = err;
+                else if (err.includes('Name')) errorYourName.textContent = err;
+                else if (err.includes('Email')) errorEmail.textContent = err;
+                else if (err.includes('Message')) errorMessage.textContent = err;
+                else formSuccess.textContent = err;
+            });
+        } else if (error.error) { // 500 xətası üçün
+            formSuccess.textContent = error.error;
+        } else if (error.message) {
+            formSuccess.textContent = error.message;
+        } else {
+            formSuccess.textContent = 'Bad Request: Please check your input and try again.';
+        }
+    }
 });
