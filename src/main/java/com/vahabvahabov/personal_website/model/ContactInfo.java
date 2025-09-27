@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class ContactInfo {
 
     @NotBlank(message = "Name cannot be empty.")
-    @Size(min = 3, max = 40, message = "Your name could not be determined.")
+    @Size(min = 3, max = 40, message = "Your name must be between 3 and 40 characters.")
     private String yourName;
 
     @NotBlank(message = "Topic is required.")
@@ -24,8 +24,6 @@ public class ContactInfo {
     private String email;
 
     @NotBlank(message = "Message cannot be empty.")
-    @Size(max = 400, message = "Message too long.")
+    @Size(min = 10, max = 400, message = "Message must be between 10 and 400 characters.")
     private String message;
-
 }
-

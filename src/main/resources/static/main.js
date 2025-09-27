@@ -1,232 +1,257 @@
+// main.js
 document.addEventListener('DOMContentLoaded', function() {
-    const dividerContainers = document.querySelectorAll('.divider-line-container');
-    const dividerObserver = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.querySelector('.left-line').style.animation = 'drawLeftLine 1s ease-out forwards';
-                entry.target.querySelector('.left-line').style.animationDelay = '0.2s';
-                entry.target.querySelector('.right-line').style.animation = 'drawRightLine 1s ease-out forwards';
-                entry.target.querySelector('.right-line').style.animationDelay = '0.2s';
-                dividerObserver.unobserve(entry.target);
-            }
-        });
-    }, {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.5
-    });
-    dividerContainers.forEach(container => dividerObserver.observe(container));
+    // Age calculator
+    calculateAge();
 
-    const birthYear = 2007;
+    // Skill modals
+    setupSkillModals();
+
+    // Contact form handling
+    setupContactForm();
+
+    // Navigation
+    setupNavigation();
+});
+
+function calculateAge() {
+    const birthYear = 2006;
     const currentYear = new Date().getFullYear();
-    const agePlaceholder = document.getElementById("age-placeholder");
-    if (agePlaceholder) agePlaceholder.textContent = currentYear - birthYear;
+    const age = currentYear - birthYear;
+    document.getElementById('age-placeholder').textContent = age;
+}
 
-    const menuButton = document.getElementById('menu-button');
-    const menuDropdown = document.getElementById('menu-dropdown');
-    const logoButton = document.getElementById('logo-button');
-    const logoDropdown = document.getElementById('logo-dropdown');
-
-    if (menuButton && menuDropdown) {
-        menuButton.addEventListener('click', event => {
-            event.stopPropagation();
-            menuDropdown.classList.toggle('opacity-100');
-            menuDropdown.classList.toggle('pointer-events-auto');
-            menuDropdown.classList.toggle('scale-100');
-            menuDropdown.classList.toggle('opacity-0');
-            menuDropdown.classList.toggle('pointer-events-none');
-            menuDropdown.classList.toggle('scale-95');
-            if (logoDropdown && !logoDropdown.classList.contains('hidden')) logoDropdown.classList.add('hidden');
-        });
-    }
-
-    if (logoButton && logoDropdown) {
-        logoButton.addEventListener('click', event => {
-            event.stopPropagation();
-            logoDropdown.classList.toggle('hidden');
-            if (menuDropdown && menuDropdown.classList.contains('opacity-100')) {
-                menuDropdown.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
-                menuDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
-            }
-        });
-    }
-
-    document.addEventListener('click', event => {
-        if (menuButton && menuDropdown && !menuButton.contains(event.target) && !menuDropdown.contains(event.target)) {
-            menuDropdown.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
-            menuDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
-        }
-        if (logoButton && logoDropdown && !logoButton.contains(event.target) && !logoDropdown.contains(event.target)) {
-            logoDropdown.classList.add('hidden');
-        }
-    });
-
+function setupSkillModals() {
     const skillCards = document.querySelectorAll('.skill-card');
-    const skillModals = document.querySelectorAll('.skill-modal');
-    const closeModalButtons = document.querySelectorAll('.close-modal');
+    const closeButtons = document.querySelectorAll('.close-modal');
 
-    skillCards.forEach(card => card.addEventListener('click', function() {
-        const modal = document.getElementById(this.dataset.skill + '-modal');
-        if (modal) {
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.classList.add('active'), 10);
-        }
-    }));
-
-    closeModalButtons.forEach(button => button.addEventListener('click', function() {
-        const modal = this.closest('.skill-modal');
-        if (modal) {
-            modal.classList.remove('active');
-            modal.addEventListener('transitionend', function handler() {
-                modal.classList.add('hidden');
-                modal.removeEventListener('transitionend', handler);
-            }, {
-                once: true
-            });
-        }
-    }));
-
-    skillModals.forEach(modal => modal.addEventListener('click', event => {
-        if (event.target === modal) {
-            modal.classList.remove('active');
-            modal.addEventListener('transitionend', function handler() {
-                modal.classList.add('hidden');
-                modal.removeEventListener('transitionend', handler);
-            }, {
-                once: true
-            });
-        }
-    }));
-
-    const contactForm = document.getElementById('contactForm');
-    const formSuccess = document.getElementById('formSuccess');
-    const sendButton = contactForm ? contactForm.querySelector('button[type="submit"]') : null;
-
-    const errors = {
-        topic: document.getElementById('error-topic'),
-        yourName: document.getElementById('error-yourName'),
-        email: document.getElementById('error-email'),
-        message: document.getElementById('error-message')
-    };
-
-    function clearErrors() {
-        Object.values(errors).forEach(el => {
-            if (el) el.textContent = '';
-        });
-        if (formSuccess) {
-            formSuccess.textContent = '';
-            formSuccess.style.color = ''; // Rəngi sıfırla
-        }
-    }
-
-    if (contactForm && sendButton) {
-        contactForm.addEventListener('submit', event => {
-            event.preventDefault();
-            clearErrors();
-
-            const topic = document.getElementById('topic').value;
-            const yourName = document.getElementById('yourName').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
-            let isValid = true;
-
-            // Validation
-            if (!topic) {
-                if (errors.topic) errors.topic.textContent = 'Please select a topic.';
-                isValid = false;
-            }
-
-            if (!yourName || yourName.length < 3 || yourName.length > 40) {
-                if (errors.yourName) errors.yourName.textContent = 'Your name must be between 3 and 40 characters.';
-                isValid = false;
-            }
-
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!email || !emailRegex.test(email)) {
-                if (errors.email) errors.email.textContent = 'Please enter a valid email address.';
-                isValid = false;
-            }
-
-            if (!message || message.length < 10 || message.length > 400) {
-                if (errors.message) errors.message.textContent = 'Message must be between 10 and 400 characters.';
-                isValid = false;
-            }
-
-            if (!isValid) {
+    skillCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            if (!e.target.classList.contains('view-details-btn')) {
                 return;
             }
 
-            sendButton.disabled = true;
-            sendButton.textContent = 'Message is sending... Please wait.';
+            const skill = this.getAttribute('data-skill');
+            const modal = document.getElementById(`${skill}-modal`);
 
-            const formData = {
-                yourName: yourName,
-                topic: topic,
-                email: email,
-                message: message
-            };
+            if (modal) {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.add('opacity-100');
+                    modal.querySelector('.modal-content').classList.remove('scale-95');
+                }, 10);
+            }
+        });
+    });
 
-            const apiUrl = 'https://www.vahabvahabov.site/api/contact';
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const modal = this.closest('.skill-modal');
+            modal.classList.remove('opacity-100');
+            modal.querySelector('.modal-content').classList.add('scale-95');
 
-            fetch(apiUrl, {
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        });
+    });
+
+    // Close modal when clicking outside
+    document.querySelectorAll('.skill-modal').forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('opacity-100');
+                this.querySelector('.modal-content').classList.add('scale-95');
+
+                setTimeout(() => {
+                    this.classList.add('hidden');
+                }, 300);
+            }
+        });
+    });
+}
+
+function setupContactForm() {
+    const contactForm = document.getElementById('contactForm');
+    const successMessage = document.getElementById('formSuccess');
+
+    if (!contactForm) return;
+
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Reset errors and messages
+        document.querySelectorAll('[id^="error-"]').forEach(el => {
+            el.textContent = '';
+        });
+        successMessage.textContent = '';
+        successMessage.className = 'text-green-400 mt-6 font-semibold text-center';
+
+        // Get form data
+        const formData = {
+            topic: document.getElementById('topic').value,
+            yourName: document.getElementById('yourName').value,
+            email: document.getElementById('email').value,
+            message: document.getElementById('message').value
+        };
+
+        // Basic validation
+        let isValid = true;
+
+        if (!formData.topic) {
+            document.getElementById('error-topic').textContent = 'Topic is required';
+            isValid = false;
+        }
+
+        if (!formData.yourName || formData.yourName.length < 3) {
+            document.getElementById('error-yourName').textContent = 'Name must be at least 3 characters';
+            isValid = false;
+        }
+
+        if (!formData.email || !isValidEmail(formData.email)) {
+            document.getElementById('error-email').textContent = 'Valid email is required';
+            isValid = false;
+        }
+
+        if (!formData.message || formData.message.length < 10) {
+            document.getElementById('error-message').textContent = 'Message must be at least 10 characters';
+            isValid = false;
+        }
+
+        if (!isValid) return;
+
+        // Show loading state
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+
+        try {
+            // ƏSAS DÜZƏLİŞ: Eyni domain-ə göndər
+            const currentDomain = window.location.origin;
+            const apiUrl = `${currentDomain}/api/contact`;
+
+            console.log('Sending request to:', apiUrl);
+
+            const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
                 },
                 body: JSON.stringify(formData)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(errorData => {
-                        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
-                    });
-                }
-                return response.text();
-            })
-            .then(data => {
-                if (formSuccess) {
-                    formSuccess.textContent = data || 'Message sent successfully!';
-                    formSuccess.style.color = '#10B981'; // Yaşıl rəng
-                }
-                contactForm.reset();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                if (formSuccess) {
-                    formSuccess.textContent = 'Failed to send message: ' + error.message;
-                    formSuccess.style.color = '#EF4444'; // Qırmızı rəng
-                }
-            })
-            .finally(() => {
-                sendButton.disabled = false;
-                sendButton.textContent = 'Send Message';
             });
+
+            console.log('Response status:', response.status);
+
+            if (response.ok) {
+                const result = await response.text();
+                successMessage.textContent = result || 'Message sent successfully!';
+                contactForm.reset();
+            } else {
+                const errorData = await response.text();
+                throw new Error(errorData || `Server error: ${response.status}`);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            successMessage.textContent = 'Error: ' + error.message;
+            successMessage.className = 'text-red-400 mt-6 font-semibold text-center';
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+function setupNavigation() {
+    // Logo dropdown
+    const logoButton = document.getElementById('logo-button');
+    const logoDropdown = document.getElementById('logo-dropdown');
+    const logoTooltip = document.getElementById('logo-tooltip');
+
+    if (logoButton) {
+        logoButton.addEventListener('mouseenter', function() {
+            logoTooltip.classList.remove('opacity-0');
+            logoTooltip.classList.add('opacity-100');
+        });
+
+        logoButton.addEventListener('mouseleave', function() {
+            logoTooltip.classList.remove('opacity-100');
+            logoTooltip.classList.add('opacity-0');
+        });
+
+        logoButton.addEventListener('click', function() {
+            logoDropdown.classList.toggle('hidden');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!logoButton.contains(e.target)) {
+                logoDropdown.classList.add('hidden');
+            }
         });
     }
 
-    const projectVideos = document.querySelectorAll('#projects video');
-    const videoObserver = new IntersectionObserver(entries => {
-        entries.forEach(entry => entry.isIntersecting ? entry.target.play() : entry.target.pause());
-    }, {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.7
-    });
-    projectVideos.forEach(video => videoObserver.observe(video));
+    // Mobile menu
+    const menuButton = document.getElementById('menu-button');
+    const menuDropdown = document.getElementById('menu-dropdown');
 
-    const fadeInSections = document.querySelectorAll('.fade-in-section');
-    const fadeInObserver = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                fadeInObserver.unobserve(entry.target);
+    if (menuButton && menuDropdown) {
+        menuButton.addEventListener('click', function() {
+            const isHidden = menuDropdown.classList.contains('opacity-0');
+
+            if (isHidden) {
+                menuDropdown.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
+                menuDropdown.classList.add('opacity-100', 'pointer-events-auto', 'scale-100');
+            } else {
+                menuDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
+                menuDropdown.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
             }
         });
-    }, {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.2
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!menuButton.contains(e.target) && !menuDropdown.contains(e.target)) {
+                menuDropdown.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
+                menuDropdown.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+            }
+        });
+    }
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
     });
-    fadeInSections.forEach(section => fadeInObserver.observe(section));
+}
+
+// Fade-in animation for project cards
+const fadeInSections = document.querySelectorAll('.fade-in-section');
+
+const fadeInObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in-visible');
+            fadeInObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.1 });
+
+fadeInSections.forEach(section => {
+    fadeInObserver.observe(section);
 });

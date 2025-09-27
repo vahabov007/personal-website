@@ -12,11 +12,6 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = {
-        "https://vahabvahabov.site",
-        "https://www.vahabvahabov.site",
-        "https://personal-website-ketc.onrender.com"
-})
 public class ContactController {
 
     private static final Logger logger = LoggerFactory.getLogger(ContactController.class);
@@ -29,10 +24,15 @@ public class ContactController {
 
     @PostMapping("/contact")
     public ResponseEntity<String> handleContactForm(@Valid @RequestBody ContactInfo contactInfo) {
-        logger.info("Contact form request accepted. Name: {}, Topic: {}, Email: {}",
-                contactInfo.getYourName(), contactInfo.getTopic(), contactInfo.getEmail());
+        logger.info("Contact form request accepted. Name: {}, Topic: {}, Email: {}, Message length: {}",
+                contactInfo.getYourName(),
+                contactInfo.getTopic(),
+                contactInfo.getEmail(),
+                contactInfo.getMessage() != null ? contactInfo.getMessage().length() : 0);
 
         try {
+            logger.info("Validation passed for contact form");
+
             String subject = "[" + contactInfo.getTopic() + "] New Contact Request from Website: " + contactInfo.getYourName();
             logger.info("Email subject: {}", subject);
 
