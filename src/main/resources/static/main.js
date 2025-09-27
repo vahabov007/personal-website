@@ -38,10 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const agePlaceholder = document.getElementById('age-placeholder');
     if (agePlaceholder) {
         const birthDate = new Date('2007-01-01');
-        const today = new Date('2025-09-27T17:18:00+04:00'); // Cari vaxt: 05:18 PM +04
+        const today = new Date('2025-09-27T17:18:00+04:00');
         const ageDifMs = today - birthDate;
         const ageDate = new Date(ageDifMs);
-        agePlaceholder.textContent = Math.abs(ageDate.getUTCFullYear() - 1970); // 18 il
+        agePlaceholder.textContent = Math.abs(ageDate.getUTCFullYear() - 1970);
     }
 
     // Skill Modals
@@ -86,10 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorYourName = document.getElementById('error-yourName');
     const errorEmail = document.getElementById('error-email');
     const errorMessage = document.getElementById('error-message');
+    const sendButton = document.getElementById('send-button'); // Send düyməsi
 
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        formSuccess.textContent = ''; // Success mesajını təmizlə
+        formSuccess.textContent = '';
+        const originalText = sendButton.textContent;
+        sendButton.textContent = 'Sending...';
+        sendButton.disabled = true;
 
         // Client-side validation
         const topic = document.getElementById('topic').value.trim();
@@ -99,45 +103,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let valid = true;
 
-        // Topic validation
         errorTopic.textContent = '';
-        if (!topic || topic === '') {
-            errorTopic.textContent = 'Topic is required.';
-            valid = false;
-        }
+        if (!topic) { errorTopic.textContent = 'Topic is required.'; valid = false; }
 
-        // Name validation
         errorYourName.textContent = '';
-        if (!yourName) {
-            errorYourName.textContent = 'Name cannot be empty.';
-            valid = false;
-        } else if (yourName.length < 3 || yourName.length > 40) {
-            errorYourName.textContent = 'Your name must be between 3 and 40 characters.';
-            valid = false;
-        }
+        if (!yourName) { errorYourName.textContent = 'Name cannot be empty.'; valid = false; }
+        else if (yourName.length < 3 || yourName.length > 40) { errorYourName.textContent = 'Your name must be between 3 and 40 characters.'; valid = false; }
 
-        // Email validation
         errorEmail.textContent = '';
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!email) {
-            errorEmail.textContent = 'Email cannot be empty.';
-            valid = false;
-        } else if (!emailRegex.test(email)) {
-            errorEmail.textContent = 'Email should be valid.';
-            valid = false;
-        }
+        if (!email) { errorEmail.textContent = 'Email cannot be empty.'; valid = false; }
+        else if (!emailRegex.test(email)) { errorEmail.textContent = 'Email should be valid.'; valid = false; }
 
-        // Message validation
         errorMessage.textContent = '';
-        if (!message) {
-            errorMessage.textContent = 'Message cannot be empty.';
-            valid = false;
-        } else if (message.length < 10 || message.length > 400) {
-            errorMessage.textContent = 'Message must be between 10 and 400 characters.';
-            valid = false;
-        }
+        if (!message) { errorMessage.textContent = 'Message cannot be empty.'; valid = false; }
+        else if (message.length < 10 || message.length > 400) { errorMessage.textContent = 'Message must be between 10 and 400 characters.'; valid = false; }
 
-        if (!valid) return;
+        if (!valid) {
+            sendButton.textContent = originalText;
+            sendButton.disabled = false;
+            return;
+        }
 
         // Send request
         const data = { topic, yourName, email, message };
@@ -149,27 +135,33 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) {
-                const errData = await response.json(); // 400 və 500 üçün JSON
+                const errData = await response.json();
                 handleServerErrors(errData);
+                sendButton.textContent = originalText;
+                sendButton.disabled = false;
                 return;
             }
 
-            const successData = await response.json(); // ✅ JSON oxu
-            formSuccess.textContent = successData.message; // yalnız message göstər
-            contactForm.reset(); // Formu təmizlə
+            const successData = await response.json();
+            formSuccess.textContent = successData.message;
+            contactForm.reset();
             errorTopic.textContent = '';
             errorYourName.textContent = '';
             errorEmail.textContent = '';
             errorMessage.textContent = '';
+            sendButton.textContent = originalText;
+            sendButton.disabled = false;
         } catch (error) {
             console.error('Form submission error:', error);
             formSuccess.textContent = 'An unexpected error occurred. Please try again later.';
+            sendButton.textContent = originalText;
+            sendButton.disabled = false;
         }
     });
 
     // Server-side validation errors handling
     function handleServerErrors(error) {
-        formSuccess.textContent = ''; // Önceki success mesajını təmizlə
+        formSuccess.textContent = '';
         errorTopic.textContent = '';
         errorYourName.textContent = '';
         errorEmail.textContent = '';
@@ -185,12 +177,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (err.includes('Message')) errorMessage.textContent = err;
                 else formSuccess.textContent = err;
             });
-        } else if (error.error) { // 500 xətası üçün
+        } else if (error.error) {
             formSuccess.textContent = error.error;
         } else if (error.message) {
             formSuccess.textContent = error.message;
         } else {
             formSuccess.textContent = 'Bad Request: Please check your input and try again.';
         }
+
+        sendButton.textContent = 'Send';
+        sendButton.disabled = false;
     }
 });
