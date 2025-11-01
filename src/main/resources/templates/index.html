@@ -7,10 +7,11 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
+
         gtag('config', 'G-51HP9PT11W');
     </script>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Vahab Vahabov | Back-end Developer</title>
 
     <meta name="description" content="Vahab Vahabov - Back-end developer personal portfolio website, showcasing projects, skills in Java, Python, and contact information.">
@@ -35,101 +36,222 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="main.css">
+
 </head>
 <body class="bg-gray-900 font-sans text-white">
-<!-- Navigation -->
-<nav class="fixed top-0 left-0 right-0 bg-gray-900 border-b border-gray-700 flex items-center justify-between px-6 py-3 z-50">
+<nav
+        class="fixed top-0 left-0 right-0 bg-gray-900 border-b border-gray-700 flex items-center justify-between px-6 py-3 z-50"
+>
     <div class="relative inline-block" id="logo-button" tabindex="0">
-            <span class="text-white text-3xl font-bold cursor-pointer select-none" title="Vahab Vahabov">
-                VV
-            </span>
-        <div class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-3 py-1 rounded bg-gray-700 text-white text-sm whitespace-nowrap opacity-0 pointer-events-none transition-opacity duration-300" id="logo-tooltip">
+      <span
+              class="text-white text-3xl font-bold cursor-pointer select-none"
+              title="Vahab Vahabov"
+      >
+        VV
+      </span>
+
+        <div
+                class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 px-3 py-1 rounded bg-gray-700 text-white text-sm whitespace-nowrap opacity-0 pointer-events-none transition-opacity duration-300"
+                id="logo-tooltip"
+        >
             Vahab Vahabov
         </div>
-        <div id="logo-dropdown" class="absolute left-0 mt-2 w-40 rounded-md shadow-lg bg-gray-900 ring-1 ring-black ring-opacity-80 hidden z-50">
+
+        <div
+                id="logo-dropdown"
+                class="absolute left-0 mt-2 w-40 rounded-md shadow-lg bg-gray-900 ring-1 ring-black ring-opacity-80 hidden z-50"
+        >
             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="logo-button">
-                <a href="#home" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 hover:text-white" role="menuitem">Home</a>
-                <a href="#about" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 hover:text-white" role="menuitem">About Me</a>
-                <a href="#skills" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 hover:text-white" role="menuitem">Skills</a>
-                <a href="#language-skills" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 hover:text-white" role="menuitem">Language Skills</a>
+                <a href="#home" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 hover:text-white"
+                   role="menuitem">Home</a>
+                <a href="#about" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 hover:text-white"
+                   role="menuitem">About Me</a>
+                <a href="#skills" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 hover:text-white"
+                   role="menuitem">Skills</a>
+                <a href="#language-skills" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 hover:text-white"
+                   role="menuitem">Language Skills</a>
             </div>
         </div>
+
     </div>
 
     <div class="hidden md:flex space-x-4 items-center">
-        <a href="https://github.com/vahabov007" target="_blank" class="text-2xl text-white hover:text-gray-300"><i class="fab fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/vahab-vahabov-38283b359/" target="_blank" class="text-2xl text-white hover:text-blue-400"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.instagram.com/vahabov996?igsh=MWZpd3N5eWQwaGZiZw==" target="_blank" class="text-2xl text-white hover:text-pink-500"><i class="fab fa-instagram"></i></a>
+        <a
+                href="https://github.com/vahabov007"
+                target="_blank"
+                class="text-2xl text-white hover:text-gray-300"
+        ><i class="fab fa-github"></i></a>
+        <a
+                href="https://www.linkedin.com/in/vahab-vahabov-38283b359/"
+                target="_blank"
+                class="text-2xl text-white hover:text-blue-400"
+        ><i class="fab fa-linkedin"></i></a>
+        <a
+                href="https://www.instagram.com/vahabov996?igsh=MWZpd3N5eWQwaGZiZw=="
+                target="_blank"
+                class="text-2xl text-white hover:text-pink-500"
+        ><i class="fab fa-instagram"></i></a>
     </div>
 
     <div class="relative md:hidden">
-        <button id="menu-button" class="text-white text-3xl focus:outline-none">☰</button>
-        <div id="menu-dropdown" class="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 opacity-0 pointer-events-none transform scale-95 transition-all duration-300 ease-in-out" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+        <button id="menu-button" class="text-white text-3xl focus:outline-none">
+            ☰
+        </button>
+
+        <div
+                id="menu-dropdown"
+                class="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5
+           opacity-0 pointer-events-none transform scale-95
+           transition-all duration-300 ease-in-out"
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="menu-button"
+                tabindex="-1"
+        >
+
             <div class="py-1" role="none">
-                <a href="#about" class="text-gray-300 block px-4 py-2 text-sm hover:bg-blue-600 hover:text-white" role="menuitem">About Me</a>
-                <a href="https://github.com/vahabov007" target="_blank" class="text-gray-300 block px-4 py-2 text-sm hover:bg-gray-700">GitHub</a>
-                <a href="https://www.linkedin.com/in/vahab-vahabov-38283b359/" target="_blank" class="text-gray-300 block px-4 py-2 text-sm hover:bg-gray-700">LinkedIn</a>
-                <a href="https://www.instagram.com/vahabov996?igsh=MWZpd3N5eWQwaGZiZw==" target="_blank" class="text-gray-300 block px-4 py-2 text-sm hover:bg-gray-700">Instagram</a>
+                <a
+                        href="#about"
+                        class="text-gray-300 block px-4 py-2 text-sm hover:bg-blue-600 hover:text-white"
+                        role="menuitem"
+                >About Me</a>
+                <a
+                        href="https://github.com/vahabov007"
+                        target="_blank"
+                        class="text-gray-300 block px-4 py-2 text-sm hover:bg-gray-700"
+                >
+                    GitHub
+                </a>
+                <a
+                        href="https://www.linkedin.com/in/vahab-vahabov-38283b359/"
+                        target="_blank"
+                        class="text-gray-300 block px-4 py-2 text-sm hover:bg-gray-700"
+                >
+                    LinkedIn
+                </a>
+                <a
+                        href="https://www.instagram.com/vahabov996?igsh=MWZpd3N5eWQwaGZiZw=="
+                        target="_blank"
+                        class="text-gray-300 block px-4 py-2 text-sm hover:bg-gray-700"
+                >
+                    Instagram
+                </a>
             </div>
         </div>
     </div>
 </nav>
 
-<!-- Main Content -->
-<main id="home" class="container mx-auto px-4 py-24 flex flex-col items-center homepage-section">
+
+<main
+        id="home"
+        class="container mx-auto px-4 py-24 flex flex-col items-center homepage-section"
+>
     <div class="md:w-full text-center mt-8 homepage-image-container order-1 md:order-1">
-        <div class="homepage-image-wrapper rounded-xl mx-auto shadow-2xl overflow-hidden relative group cursor-pointer">
-            <img src="images/vahab.jpg" alt="Vahab Vahabov" class="homepage-image w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-105"/>
+        <div
+                class="w-96 h-96 rounded-xl mx-auto shadow-2xl overflow-hidden relative group cursor-pointer"
+        >
+            <img
+                    src="images/vahab.jpg"
+                    alt="Vahab Vahabov"
+                    class="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-105"
+            />
             <div class="absolute inset-0 bg-blue-700 opacity-0 group-hover:opacity-50 transition-opacity duration-300 rounded-xl"></div>
+
             <div class="absolute inset-0 flex flex-col items-center justify-center text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <p class="text-white text-3xl font-bold mb-2">Vahab Vahabov</p>
-                <p class="text-gray-200 text-xl font-medium">Back-End Developer</p>
+                <p class="text-white text-3xl font-bold mb-2">
+                    Vahab Vahabov
+                </p>
+                <p class="text-gray-200 text-xl font-medium">
+                    Back-End Developer
+                </p>
             </div>
         </div>
     </div>
 
-    <div class="md:w-full text-center mb-6 md:mb-0 order-2 md:order-2 homepage-content">
-        <h1 class="homepage-heading text-5xl md:text-6xl font-bold text-white tracking-wide mt-8">Vahab Vahabov</h1>
-        <p class="homepage-subtitle font-elegant-serif text-2xl md:text-4xl text-gray-300 mt-5">Back-end Developer</p>
-        <p class="typewriter-text text-gray-400 mt-6 text-base md:text-2xl mx-auto">Hello! I am a Back-end Developer, and this is my personal website.</p>
+    <div class="md:w-full text-center mb-6 md:mb-0 order-2 md:order-2">
+        <h1 class="text-5xl md:text-6xl font-bold text-white tracking-wide mt-8">
+            Vahab Vahabov
+        </h1>
+
+        <p
+                class="font-elegant-serif text-2xl md:text-4xl text-gray-300 mt-5 homepage-subtitle"
+        >
+            Back-end Developer
+        </p>
+
         <div class="mt-10 flex justify-center contact-link-container">
-            <a href="#contact" class="text-blue-500 hover:text-blue-700 font-semibold text-2xl md:text-3xl border-2 border-blue-500 rounded-full px-8 py-3 inline-block transition-colors duration-300">Contact Me</a>
+            <a
+                    href="#contact"
+                    class="text-blue-500 hover:text-blue-700 font-semibold text-2xl md:text-3xl
+                   border-2 border-blue-500 rounded-full px-8 py-3 inline-block
+                   transition-colors duration-300"
+            >
+                Contact Me
+            </a>
         </div>
     </div>
 </main>
 
-<!-- Divider -->
+
 <div class="divider-line-container my-20 mx-auto max-w-5xl flex items-center justify-center overflow-hidden">
     <div class="animated-line left-line bg-gradient-to-r from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
-    <div class="line-gap w-8 flex-shrink-0"></div>
-    <div class="animated-line right-line bg-gradient-to-l from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+    <div class="line-gap w-8 flex-shrink-0"></div> <div class="animated-line right-line bg-gradient-to-l from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
 </div>
 
-<!-- About Section -->
 <section id="about" class="bg-gray-900 py-20 px-4 text-center">
-    <h2 class="section-heading text-5xl font-bold mb-10 text-white">About Me</h2>
-    <div class="max-w-4xl mx-auto bg-gray-800 rounded-2xl shadow-2xl p-10 border border-gray-700">
+    <h2 class="text-5xl font-bold mb-10 text-white">About Me</h2>
+
+    <div
+            class="max-w-4xl mx-auto bg-gray-800 rounded-2xl shadow-2xl p-10 border border-gray-700"
+    >
         <p class="text-xl leading-relaxed text-gray-300">
-            I am Vahab Vahabov, an <span id="age-placeholder">18</span>-year-old student. In 2024, I graduated with honors (red diploma) from Secondary School No. 4 named after M. Adigozalov in Khirdalan City. Currently, I am pursuing a degree in Azerbaijan State University of Economics. Since childhood, I have been passionate about creating and developing software, which led me to choose this field. I enjoy constantly improving myself, applying new technologies to my projects, and overcoming the challenges I encounter. At the moment, I have knowledge of Java, Python, and HTML, and I continuously strive to learn additional necessary programming languages.
+            I am Vahab Vahabov, an <span id="age-placeholder">18</span>-year-old
+            student. In 2024, I graduated with honors (red diploma) from Secondary
+            School No. 4 named after
+            <a href="https://www.google.com/maps/place/4+Nomreli+Orta+Mekteb/@40.4494905,49.7567488,17z/data=!3m1!4b1!4m6!3m5!1s0x403085d8c67a00b3:0x6f848c6854a37b8e!8m2!3d40.4494905!4d49.7567488!16s%2Fg%2F11c6cr0v__?entry=ttu&g_ep=EgoyMDI1MDcxNi4wIKXMDSoASAFQAw%3D%3D"
+               target="_blank" class="underline decoration-gray-300 decoration-1 hover:decoration-blue-500 transition">
+                M. Adigozalov in Khirdalan City
+            </a>. Currently, I am
+            pursuing a degree in
+            <a href="https://www.google.com/maps/place/Azerbaijan+State+Economic+University/@40.3858125,49.8247791,17z/data=!3m1!4b1!4m6!3m5!1s0x40307d9b9925c3ed:0xeee07cb0b400caa2!8m2!3d40.3858125!4d49.827354!16s%2Fg%2F1tf1976j?entry=ttu&g_ep=EgoyMDI1MDcxNi4wIKXMDSoASAFQAw%3D%3D"
+               target="_blank" class="underline decoration-gray-300 decoration-1 hover:decoration-blue-500 transition">
+                Azerbaijan State University of Economics
+            </a>. Since childhood, I have been passionate about creating and
+            developing software, which led me to choose this field. I enjoy
+            constantly improving myself, applying new technologies to my projects,
+            and overcoming the challenges I encounter. At the moment, I have
+            knowledge of Java, Python, and HTML, and I continuously strive to learn
+            additional necessary programming languages.
         </p>
+
     </div>
 </section>
 
-<!-- Skills Section -->
+<div class="divider-line-container my-20 mx-auto max-w-5xl flex items-center justify-center overflow-hidden">
+    <div class="animated-line left-line bg-gradient-to-r from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+    <div class="line-gap w-8 flex-shrink-0"></div> <div class="animated-line right-line bg-gradient-to-l from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+</div>
+
 <section id="skills" class="bg-gray-900 py-20 px-4 text-center">
-    <h2 class="section-heading text-5xl font-bold mb-16 text-white">My Skills</h2>
-    <p class="text-2xl text-gray-400 italic mb-10 -mt-8">Click on a skill card to see details!</p>
+    <h2 class="text-5xl font-bold mb-16 text-white">My Skills</h2>
+    <p class="text-2xl text-gray-400 italic mb-10 -mt-8">
+        Click on a skill card to see details!
+    </p>
+
     <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Skill cards remain the same as your original code -->
-        <div class="skill-card bg-gray-800 rounded-xl shadow-xl p-6 relative cursor-pointer hover:scale-105 hover:shadow-2xl transition-all duration-300 transform-gpu perspective-1000 group" data-skill="java">
-            <img src="images/java2.png" alt="Java Logo" class="w-28 h-28 mx-auto mb-4 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:drop-shadow-lg">
+        <div class="skill-card bg-gray-800 rounded-xl shadow-xl p-6 relative cursor-pointer
+                        hover:scale-105 hover:shadow-2xl transition-all duration-300
+                        transform-gpu perspective-1000 group" data-skill="java"> <img src="images/java2.png" alt="Java Logo" class="w-28 h-28 mx-auto mb-4 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:drop-shadow-lg">
             <h3 class="text-2xl font-bold text-[#f89820] mb-2">Java</h3>
             <span class="text-white text-sm font-semibold">Advanced</span>
             <div class="w-full bg-gray-700 rounded-full h-4 mt-4 mb-6">
                 <div class="bg-[#f89820] h-4 rounded-full" style="width: 90%;"></div>
             </div>
-            <button class="view-details-btn bg-[#f89820] text-gray-900 font-bold py-2 px-4 rounded-full hover:bg-opacity-80 transition-colors duration-300 text-sm">View Details</button>
+            <button class="view-details-btn bg-[#f89820] text-gray-900 font-bold py-2 px-4 rounded-full hover:bg-opacity-80 transition-colors duration-300 text-sm">
+                View Details
+            </button>
         </div>
+
         <div class="skill-card bg-gray-800 rounded-xl shadow-xl p-6 relative cursor-pointer
                         hover:scale-105 hover:shadow-2xl transition-all duration-300
                         transform-gpu perspective-1000 group" data-skill="python"> <img src="images/python2.png" alt="Python Logo" class="w-28 h-28 mx-auto mb-4 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:drop-shadow-lg">
@@ -250,9 +372,13 @@
 
 </section>
 
-<!-- Projects Section -->
+<div class="divider-line-container my-20 mx-auto max-w-5xl flex items-center justify-center overflow-hidden">
+    <div class="animated-line left-line bg-gradient-to-r from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+    <div class="line-gap w-8 flex-shrink-0"></div> <div class="animated-line right-line bg-gradient-to-l from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+</div>
+
 <section id="projects" class="bg-gray-900 py-20 px-4 text-center">
-    <h2 class="section-heading text-5xl font-bold mb-16 text-white">My Projects</h2>
+    <h2 class="text-5xl font-bold mb-16 text-white">My Projects</h2>
     <div class="grid gap-12 max-w-5xl mx-auto">
         <div class="project-card bg-gray-800 rounded-xl shadow-2xl p-6 relative overflow-hidden transition-all duration-300 transform-gpu hover:scale-[1.02] group fade-in-section">
             <div class="absolute inset-0 bg-gradient-to-br from-blue-700 to-blue-900 opacity-20 transition-opacity duration-500 group-hover:opacity-40 z-0"></div>
@@ -319,9 +445,14 @@
     </div>
 </section>
 
-<!-- Language Skills Section -->
+<div class="divider-line-container my-20 mx-auto max-w-5xl flex items-center justify-center overflow-hidden">
+    <div class="animated-line left-line bg-gradient-to-r from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+    <div class="line-gap w-8 flex-shrink-0"></div> <div class="animated-line right-line bg-gradient-to-l from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+</div>
+
 <section id="language-skills" class="bg-gray-900 py-20 px-4 text-center">
-    <h2 class="section-heading text-5xl font-bold mb-16 text-white">Language Skills</h2>
+    <h2 class="text-5xl font-bold mb-16 text-white">Language Skills</h2>
+
     <div class="max-w-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         <div class="bg-green-700 rounded-xl p-6 max-w-sm mx-auto shadow-lg text-center w-full">
             <h3 class="text-white text-3xl font-bold mb-3">Azerbaijani</h3>
@@ -331,6 +462,7 @@
             </div>
             <p class="text-green-200 text-lg font-medium">Native Speaker</p>
         </div>
+
         <div class="bg-blue-700 rounded-xl p-6 max-w-sm mx-auto shadow-lg text-center w-full">
             <h3 class="text-white text-3xl font-bold mb-3">English</h3>
             <div class="flex items-center justify-center mb-2 space-x-2">
@@ -342,91 +474,98 @@
     </div>
 </section>
 
-<!-- Contact Section -->
+<div class="divider-line-container my-20 mx-auto max-w-5xl flex items-center justify-center overflow-hidden">
+    <div class="animated-line left-line bg-gradient-to-r from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+    <div class="line-gap w-8 flex-shrink-0"></div> <div class="animated-line right-line bg-gradient-to-l from-transparent via-blue-500 to-indigo-500 h-1 w-1/2 rounded-full"></div>
+</div>
+
 <section id="contact" class="bg-gray-900 py-20 px-4 text-center">
-    <h2 class="section-heading text-5xl font-bold mb-12 text-white">Get in Touch</h2>
-    <p class="text-gray-400 max-w-xl mx-auto mb-8">Have a question or want to work together? Feel free to send me a message!</p>
+    <h2 class="text-5xl font-bold mb-12 text-white">Get in Touch</h2>
+
+    <p class="text-gray-400 max-w-xl mx-auto mb-8">
+        Have a question or want to work together? Feel free to send me a message!
+    </p>
+
     <form id="contactForm" class="max-w-lg mx-auto">
-            <select id="topic" name="topic" class="w-full mb-1 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500" required>
-                <option value="" disabled selected>Select Topic</option>
-                <option value="Job Opportunity">Job Opportunity</option>
-                <option value="Project Collaboration">Project Collaboration</option>
-                <option value="General Inquiry">General Inquiry</option>
-                <option value="Feedback/Bug Report">Feedback / Bug Report</option>
-                <option value="Other">Other</option>
-            </select>
-            <span id="error-topic" class="text-red-500 text-sm mb-4 block"></span>
+        <select id="topic" name="topic" class="w-full mb-1 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500" required>
+            <option value="" disabled selected>Select Topic</option>
+            <option value="Job Opportunity">Job Opportunity</option>
+            <option value="Project Collaboration">Project Collaboration</option>
+            <option value="General Inquiry">General Inquiry</option>
+            <option value="Feedback/Bug Report">Feedback / Bug Report</option>
+            <option value="Other">Other</option>
+        </select>
+        <span id="error-topic" class="text-red-500 text-sm mb-4 block"></span>
 
-            <input
-                    type="text"
-                    id="yourName"
-                    name="yourName"
-                    placeholder="Your Name"
-                    class="w-full mb-1 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500"
-                    required
-            />
-            <span id="error-yourName" class="text-red-500 text-sm mb-4 block"></span>
+        <input
+                type="text"
+                id="yourName"
+                name="yourName"
+                placeholder="Your Name"
+                class="w-full mb-1 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500"
+                required
+        />
+        <span id="error-yourName" class="text-red-500 text-sm mb-4 block"></span>
 
-            <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Your Email"
-                    class="w-full mb-1 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500"
-                    required
-            />
-            <span id="error-email" class="text-red-500 text-sm mb-4 block"></span>
+        <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Your Email"
+                class="w-full mb-1 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500"
+                required
+        />
+        <span id="error-email" class="text-red-500 text-sm mb-4 block"></span>
 
-            <textarea
-                    id="message"
-                    name="message"
-                    rows="5"
-                    placeholder="Your Message"
-                    class="w-full mb-4 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500"
-                    required
-            ></textarea>
-            <span id="error-message" class="text-red-500 text-sm mb-6 block"></span>
+        <textarea
+                id="message"
+                name="message"
+                rows="5"
+                placeholder="Your Message"
+                class="w-full mb-4 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500"
+                required
+        ></textarea>
+        <span id="error-message" class="text-red-500 text-sm mb-6 block"></span>
 
-            <button
-                    type="submit"
-                    id="send-button"
-                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300"
-            >
-                Send Message
-            </button>
-        </form>
+        <button
+                type="submit"
+                id="send-button"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300"
+        >
+            Send Message
+        </button>
+    </form>
 
-        <div id="formSuccess" class="text-green-400 mt-6 font-semibold text-center"></div>
+    <div id="formSuccess" class="text-green-400 mt-6 font-semibold text-center"></div>
 
-        <div class="mt-12 flex justify-center space-x-8 items-center">
-            <a href="https://github.com/vahabov007" target="_blank" class="hover:scale-110 transition duration-200">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" class="w-8 h-8 invert" />
-            </a>
+    <div class="mt-12 flex justify-center space-x-8 items-center">
+        <a href="https://github.com/vahabov007" target="_blank" class="hover:scale-110 transition duration-200">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" class="w-8 h-8 invert" />
+        </a>
 
-            <a href="https://www.linkedin.com/in/vahab-vahabov-136680356/" target="_blank" class="hover:scale-110 transition duration-200">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" class="w-8 h-8" />
-            </a>
+        <a href="https://www.linkedin.com/in/vahab-vahabov-136680356/" target="_blank" class="hover:scale-110 transition duration-200">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" class="w-8 h-8" />
+        </a>
 
-            <a href="https://www.instagram.com/vahabov996" target="_blank" class="hover:scale-110 transition duration-200">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="w-8 h-8 rounded" />
-            </a>
+        <a href="https://www.instagram.com/vahabov996" target="_blank" class="hover:scale-110 transition duration-200">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="w-8 h-8 rounded" />
+        </a>
 
-            <a href="https://leetcode.com/u/vahabov007/" target="_blank" class="hover:scale-110 transition duration-200">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png" alt="LeetCode" class="w-8 h-8" />
-            </a>
+        <a href="https://leetcode.com/u/vahabov007/" target="_blank" class="hover:scale-110 transition duration-200">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png" alt="LeetCode" class="w-8 h-8" />
+        </a>
 
-            <a href="https://basecamp.eolymp.com/en/users/vahabov007" target="_blank" class="hover:scale-110 transition duration-200">
-                <img src="https://www.eolymp.com/favicon.ico" alt="Eolymp" class="w-8 h-8" />
-            </a>
-        </div>
+        <a href="https://basecamp.eolymp.com/en/users/vahabov007" target="_blank" class="hover:scale-110 transition duration-200">
+            <img src="https://www.eolymp.com/favicon.ico" alt="Eolymp" class="w-8 h-8" />
+        </a>
+    </div>
 </section>
 
-<!-- Footer -->
 <footer class="bg-gray-800 text-white text-center py-4 text-sm">
     <p>© 2025 Vahab Vahabov. All rights reserved.</p>
     <p class="mt-1">Built with <span class="font-semibold text-blue-400">Spring Boot</span> & <span class="font-semibold text-teal-300">TailwindCSS</span></p>
 </footer>
 
-<script src="main.js"></script>
 </body>
+<script src="main.js"></script>
 </html>
