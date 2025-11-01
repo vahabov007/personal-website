@@ -1,21 +1,27 @@
-FROM eclipse-temurin:17-jdk-alpine AS build
+FROM maven:3.9.6-eclipse-temurin-21-alpine AS build
 
 WORKDIR /app
+
+COPY pom.xml .
 
 COPY mvnw .
 COPY .mvn .mvn
-COPY pom.xml .
 
-RUN chmod +x mvnw && ./mvnw dependency:go-offline
+RUN mvn dependency:go-offline -B || mvn dependency:resolve -B
 
 COPY src ./src
 
-RUN ./mvnw package -DskipTests
+RUN mvn clean package -DskipTests
 
-FROM eclipse-temurin:17-jdk-alpine
+FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
 
-COPY --from=build /app/target/personal-website-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 
-ENTRYPOINT ["java","-jar","app.jar"]
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
