@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Logo interactions
     const logoButton = document.getElementById('logo-button');
     const logoTooltip = document.getElementById('logo-tooltip');
     if (logoButton && logoTooltip) {
@@ -11,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         logoButton.addEventListener('click', () => logoDropdown.classList.toggle('hidden'));
     }
 
+    // Mobile menu interactions
     const menuButton = document.getElementById('menu-button');
     const menuDropdown = document.getElementById('menu-dropdown');
     if (menuButton && menuDropdown) {
@@ -21,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Typewriter effect
     const typewriterText = document.querySelector('.typewriter-text');
     if (typewriterText) {
         const text = typewriterText.textContent;
@@ -36,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         type();
     }
 
+    // Age calculation
     const agePlaceholder = document.getElementById('age-placeholder');
     if (agePlaceholder) {
         const birthDate = new Date('2007-01-01');
@@ -45,9 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
         agePlaceholder.textContent = Math.abs(ageDate.getUTCFullYear() - 1970);
     }
 
+    // Skill modals
     const skillCards = document.querySelectorAll('.skill-card');
     const skillModals = document.querySelectorAll('.skill-modal');
     const closeModals = document.querySelectorAll('.close-modal');
+
     skillCards.forEach(card => {
         card.addEventListener('click', () => {
             const skill = card.dataset.skill;
@@ -62,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
     closeModals.forEach(btn => {
         btn.addEventListener('click', () => {
             const modal = btn.closest('.skill-modal');
@@ -74,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Fade-in sections
     const fadeInSections = document.querySelectorAll('.fade-in-section');
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
@@ -84,8 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     fadeInSections.forEach(section => observer.observe(section));
 
-    // ** Project Videos Autoplay JS section is REMOVED as HTML attributes are used **
-
+    // Contact form handling
     const contactForm = document.getElementById('contactForm');
     const sendButton = document.getElementById('send-button');
     const initialButtonText = sendButton ? sendButton.textContent : 'Send Message';
@@ -209,5 +216,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
 });
